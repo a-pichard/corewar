@@ -14,7 +14,7 @@ void helper(char *prg_name, int exit_status)
     my_putstr(prg_name);
     my_putstr(" file_name[.s]\n\n");
     my_putstr("DESCRIPTION\n\t\t");
-    my_putstr("file_name\tfile in assembly language to be converted into ");
-    my_putstr("file_name.cor, an\n\t\t\t\texecutable in the Virtual Machine.\n");
+    my_putstr("file_name\tfile in assembly language to be converted into file");
+    my_putstr("_name.cor, an\n\t\t\t\texecutable in the Virtual Machine.\n");
     exit(exit_status);
 }
