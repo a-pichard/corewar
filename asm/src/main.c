@@ -9,5 +9,9 @@
 
 int main(int ac, char **av)
 {
+    char **file = get_file(ac, av);
+
+    print_tab(file);
+    destroy_tab(file);
     return (0);
 }
