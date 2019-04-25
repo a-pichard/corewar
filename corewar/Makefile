@@ -9,7 +9,7 @@ SRC	=	src/main.c
 
 OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	=	-Iincl
+CFLAGS	=	-Iincl -W -Wall -Westra
 
 NAME	=	corewar
 
