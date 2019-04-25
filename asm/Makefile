@@ -6,6 +6,7 @@
 ##
 
 SRC	=	src/main.c	\
+		src/utils/my_strcmp.c \
 		src/helper.c	\
 		src/get_file.c	\
 		src/utils/my_strlen.c	\
@@ -15,7 +16,7 @@ SRC	=	src/main.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	=	-Iincl -W -Wall -Westra
+CFLAGS	=	-Iincl -W -Wall -Wextra
 
 NAME	=	asm
 

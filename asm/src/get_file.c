@@ -15,6 +15,8 @@ void check_args(int ac, char **av)
 
     if (ac != 2)
         helper(av[0], 84);
+    if (!my_strcmp(av[1], "-h"))
+        helper(av[0], 0);
     len_str = my_strlen(av[1]) - 1;
     if (len_str < 2)
         helper(av[0], 84);

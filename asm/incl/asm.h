@@ -15,7 +15,7 @@ void my_putchar(char c);
 char *my_strdup(char *str);
 void destroy_tab(char **tab);
 void print_tab(char **tab);
-
+int my_strcmp(char const *s1, char const *s2);
 void helper(char *prg_name, int exit_status);
 
 char **get_file(int ac, char **av);
