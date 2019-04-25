@@ -8,6 +8,7 @@
 SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
 		src/helper.c	\
+		src/utils/split.c \
 		src/get_file.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
