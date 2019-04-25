@@ -14,12 +14,12 @@ void check_args(int ac, char **av)
     int len_str;
 
     if (ac != 2)
-        my_puterr("Only one argument is needed.\n");
+        helper(av[0], 84);
     len_str = my_strlen(av[1]) - 1;
     if (len_str < 2)
-        my_puterr("error in filename.\n");
+        helper(av[0], 84);
     if (av[1][len_str] != 's' || av[1][len_str - 1] != '.')
-        my_puterr("error in filename.\n");
+        helper(av[0], 84);
 }
 
 char **my_read(FILE *file)

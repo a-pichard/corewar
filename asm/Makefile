@@ -6,6 +6,7 @@
 ##
 
 SRC	=	src/main.c	\
+		src/helper.c	\
 		src/get_file.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
