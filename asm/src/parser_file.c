@@ -63,10 +63,12 @@ int name_file(char **file, int fd, int *i)
         write(fd, &n, sizeof(n);
 }
 
-int parser_file(char **file, int fd)
+int parser_file(char **file, char *fn)
 {
     int i;
+    int fd;
 
+    fn = realloc(fn, sizeof(char) * (my_strlen(fn) + 4));
     file = getcomment(file);
     write(fd, COREWAR_EXEC_MAGIC, sizeof(COREWAR_EXEC_MAGIC));
     for (i = 0; file[i] != NULL && empty_line(file[i]); i += 1);
