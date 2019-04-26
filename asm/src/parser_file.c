@@ -43,7 +43,7 @@ char **getcomment(char **file)
 int empty_line(char *str)
 {
     for (int i = 0; str[i]; i += 1) {
-        if (str[i] != ' ' && str[i] != '\n' && str[i] == '\t')
+        if (str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
             return (0);
     }
     return (1);
@@ -60,20 +60,26 @@ int name_file(char **file, int fd, int *i)
         my_puterr("syntax error\n");
     write(fd, line[1], my_strlen(line[1]));
     for (int i = 0; i < PROG_NAME_LENGHT - my_strlen(line[1]); i += 1)
-        write(fd, &n, sizeof(n);
+        write(fd, &n, sizeof(n));
+    while (file[*i] != NULL && empty_line(file[*i]))
+        *i += 1;
+    if (file[*i] == NULL)
+        my_puterr("empty file, only name\n");
+    return (fd);
 }
 
-int parser_file(char **file, char *fn)
+void parser_file(char **file, char *fn)
 {
     int i;
     int fd;
 
     fn = realloc(fn, sizeof(char) * (my_strlen(fn) + 4));
+    fd = open(fn, O_CREAT | O_WRONLY | O_TRUNC, 0664);
     file = getcomment(file);
     write(fd, COREWAR_EXEC_MAGIC, sizeof(COREWAR_EXEC_MAGIC));
     for (i = 0; file[i] != NULL && empty_line(file[i]); i += 1);
     if (file[i] == NULL)
-        my_puterr("empty_file\n");
+        my_puterr("empty file\n");
     fd = name_file(file, fd, &i);
-    return (fd);
+    close(fd);
 }
