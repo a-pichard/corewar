@@ -11,6 +11,7 @@ SRC	=	src/main.c	\
 		src/parser_file.c \
 		src/utils/split.c \
 		src/get_file.c	\
+		src/get_filename.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
 		src/utils/my_strdup.c	\
