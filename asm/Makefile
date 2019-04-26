@@ -8,14 +8,15 @@
 SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
 		src/helper.c	\
-		src/parser_file.c \
 		src/utils/split.c \
 		src/get_file.c	\
 		src/get_filename.c	\
+		src/parser_file.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
 		src/utils/my_strdup.c	\
-		src/utils/tab_utils.c
+		src/utils/tab_utils.c	\
+		src/utils/my_strcat.c
 
 OBJ	=	$(SRC:.c=.o)
 
