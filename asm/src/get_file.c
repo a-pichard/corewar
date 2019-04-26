@@ -22,6 +22,8 @@ void check_args(int ac, char **av)
         helper(av[0], 84);
     if (av[1][len_str] != 's' || av[1][len_str - 1] != '.')
         helper(av[0], 84);
+    if (get_pathlen(av[1]) < 1)
+        helper(av[0], 84);
 }
 
 char **my_read(FILE *file)
