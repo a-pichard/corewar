@@ -17,7 +17,7 @@ void destroy_tab(char **tab);
 void print_tab(char **tab);
 int my_strcmp(char const *s1, char const *s2);
 void helper(char *prg_name, int exit_status);
-
+char **getcomment(char **file);
 char **get_file(int ac, char **av);
 char **my_str_to_word_tab(char *str);
 #endif
