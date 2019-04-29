@@ -8,8 +8,10 @@
 SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
 		src/helper.c	\
+		src/utils/lit_to_big_endian.c \
 		src/utils/split.c \
 		src/get_file.c	\
+		src/comment.c \
 		src/get_filename.c	\
 		src/parser_file.c	\
 		src/utils/my_strlen.c	\

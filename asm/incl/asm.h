@@ -17,6 +17,7 @@ char *my_strcat_bis(char *s1, char *s2);
 void destroy_tab(char **tab);
 void print_tab(char **tab);
 int my_strcmp(char const *s1, char const *s2);
+int lit_to_big_endian(int x);
 
 void helper(char *prg_name, int exit_status);
 
@@ -26,4 +27,7 @@ char *get_filename(char *path);
 char **my_str_to_word_tab(char *str);
 int get_pathlen(char *path);
 void parser_file(char **file, char *fn);
+char *get_quotes(char *str);
+int empty_line(char *str);
+char **getcomment(char **file);
 #endif
