@@ -8,6 +8,7 @@
 #ifndef ASM_H_
 #define ASM_H_
 
+int my_atoi(char *str);
 int my_strlen(char const *);
 void my_puterr(char const *str);
 void my_putstr(char const *str);
@@ -18,6 +19,7 @@ void destroy_tab(char **tab);
 void print_tab(char **tab);
 int my_strcmp(char const *s1, char const *s2);
 int lit_to_big_endian(int x);
+int operator(char **str, int n, char **file, int *j);
 
 void helper(char *prg_name, int exit_status);
 
@@ -30,4 +32,5 @@ void parser_file(char **file, char *fn);
 char *get_quotes(char *str);
 int empty_line(char *str);
 char **getcomment(char **file);
+int len_bin(char **file, int i);
 #endif

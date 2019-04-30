@@ -14,44 +14,43 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-char *name_file(char **file, int *fd, int *i)
+void name_file(char **file, int *fd, int *i)
 {
     char **line = my_str_to_word_tab(file[*i]);
     char n = 0;
-    int nb = lit_to_big_endian(42);
 
-    if (my_strcmp(line[0], ".name"))
+    if (my_strcmp(line[0], NAME_CMD_STRING))
         my_puterr("need the name first\n");
     if (line[1] == NULL || line[2] != NULL ||
        line[1][0] != '"' || line[1][my_strlen(line[1] - 1)] != '"')
         my_puterr("syntax error\n");
     write(*fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
-    for (int i = 0; i < PROG_NAME_LENGTH; i += 1)
+    for (int i = 0; i < PROG_NAME_LENGTH - my_strlen(line[1]) + 6; i += 1)
         write(*fd, &n, sizeof(n));
     *i += 1;
-    write(*fd, &nb, sizeof(nb));
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
     if (file[*i] == NULL)
         my_puterr("empty file, only name\n");
-    return (get_quotes(line[1]));
 }
 
-int comment_file(char **file, int fd, int *i, char *name)
+int comment_file(char **file, int fd, int *i)
 {
     char **line = my_str_to_word_tab(file[*i]);
     char n = 0;
+    int nb;
 
-    if (my_strcmp(line[0], ".comment"))
+    if (my_strcmp(line[0], COMMENT_CMD_STRING))
         my_puterr("need comment\n");
     if (line[1] == NULL || line[2] != NULL ||
        line[1][0] != '"' || line[1][my_strlen(line[1] - 1)] != '"')
         my_puterr("syntax error\n");
-    write(fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
-    for (int i = 0; i < COMMENT_LENGTH - (8 + my_strlen(name) +
-            my_strlen(line[1]) - 2) % 16; i += 1)
-        write(fd, &n, sizeof(n));
     *i += 1;
+    nb = lit_to_big_endian(len_bin(file, *i));
+    write(fd, &nb, sizeof(nb));
+    write(fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
+    for (int i = 0; i < COMMENT_LENGTH + 6 - my_strlen(line[1]); i += 1)
+        write(fd, &n, sizeof(n));
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
     return (fd);
@@ -70,7 +69,8 @@ void parser_file(char **file, char *fn)
     for (i = 0; file[i] != NULL && empty_line(file[i]); i += 1);
     if (file[i] == NULL)
         my_puterr("empty file\n");
-    fd = comment_file(file, fd, &i, name_file(file, &fd, &i));
+    name_file(file, &fd, &i);
+    fd = comment_file(file, fd, &i);
     //if (file[*i] != NULL)
         //do
     free(fn);

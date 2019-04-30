@@ -9,7 +9,10 @@ SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
 		src/helper.c	\
 		src/utils/lit_to_big_endian.c \
+		src/utils/my_atoi.c \
+		src/utils/operator.c \
 		src/utils/split.c \
+		src/len_bin.c \
 		src/get_file.c	\
 		src/comment.c \
 		src/get_filename.c	\
