@@ -8,6 +8,11 @@
 #ifndef ASM_H_
 #define ASM_H_
 
+int is_lab(char *str);
+int is_reg(char *str);
+int is_dir(char *str);
+int is_ind(char *str);
+int type(char *str);
 int my_atoi(char *str);
 int my_strlen(char const *);
 void my_puterr(char const *str);
@@ -23,6 +28,7 @@ int operator(char **str, int n, char **file, int *j);
 
 void helper(char *prg_name, int exit_status);
 
+int char_instr(char *str, char c);
 char **getcomment(char **file);
 char **get_file(int ac, char **av);
 char *get_filename(char *path);

@@ -13,6 +13,7 @@ SRC	=	src/main.c	\
 		src/utils/operator.c \
 		src/utils/split.c \
 		src/len_bin.c \
+		src/utils/type.c \
 		src/get_file.c	\
 		src/comment.c \
 		src/get_filename.c	\

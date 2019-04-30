@@ -40,7 +40,6 @@ char **getcomment(char **file)
     return (file);
 }
 
-
 int empty_line(char *str)
 {
     for (int i = 0; str[i]; i += 1) {
