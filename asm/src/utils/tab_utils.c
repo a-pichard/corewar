@@ -14,6 +14,7 @@ void print_tab(char **tab)
 
     while (tab[i] != NULL) {
         my_putstr(tab[i]);
+        my_putchar('\n');
         i++;
     }
 }

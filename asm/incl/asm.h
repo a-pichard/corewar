@@ -46,6 +46,7 @@ int empty_line(char *str);
 char **getcomment(char **file);
 int len_bin(char **file, int i);
 int prog(char **file, int i, int fd);
+void check_label(char **file, int i);
 
 typedef struct file_s
 {

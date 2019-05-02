@@ -20,6 +20,7 @@ SRC	=	src/main.c	\
 		src/get_filename.c	\
 		src/utils/base.c \
 		src/parser_file.c	\
+		src/check_label.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
 		src/utils/pars_type.c \
