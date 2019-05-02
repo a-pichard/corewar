@@ -18,7 +18,7 @@ int len_bin(char **file, int i, int end)
     while (file[i] != NULL && end != i) {
         while (file[i] != NULL && end != i && empty_line(file[i]))
             i += 1;
-        if (file[i] != NULL) {
+        if (file[i] != NULL && end != i) {
             dest += operator(my_str_to_word_tab(file[i]), 0, file, &i);
             i += 1;
         }

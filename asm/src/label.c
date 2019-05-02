@@ -12,6 +12,8 @@
 
 int my_lab(char **str, file_t *cor)
 {
+    if (str[0] == NULL)
+        return (0);
     if (is_lab(str[0]) && !my_strcmp_lab(str[0], cor->label))
         return (1);
     return (0);

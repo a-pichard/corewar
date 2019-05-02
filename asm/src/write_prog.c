@@ -76,15 +76,16 @@ file_t *write_op(char **str, file_t *cor, char **file, int *j)
     op_t op_tab[] = {OP_TAB};
     int n = (is_lab(str[0])) ? 1 : 0;
 
-    for (i = 0; op_tab[i].mnemonique != NULL &&
+    for (i = 0; op_tab[i].mnemonique != NULL && str[n] != NULL &&
             my_strcmp(op_tab[i].mnemonique, str[n]); i += 1);
-    if (op_tab[i].mnemonique == NULL) {
-        if (str[1] == NULL)
+    if (op_tab[i].mnemonique == NULL || str[n] == NULL) {
+        if (str[1] == NULL) {
             return (write_op(my_str_to_word_tab(file[pars_label(*j, file)]),
                 cor, file, j));
+        }
         return (write_op(str, cor, file, j));
     }
-    if (my_strcmp(str[n], mem[n]))
+    if (str[n] != NULL && my_strcmp(str[n], mem[n]))
         *j = pars_label(*j, file);
     cor->pos = *j;
     return (write_instruction(str, cor, i, op_tab));
