@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** prog.c
+** write_prog.c
 ** File description:
 ** prog
 */
@@ -42,7 +42,7 @@ file_t *my_instruct(int i, file_t *cor, char *instruct, int m)
         cor->fd = pars_reg(instruct, cor->fd);
     if (t == T_DIR) {
         if (!m && (op_tab[i].code == 9 || op_tab[i].code == 10 ||
-                   op_tab[i].code == 12))
+                op_tab[i].code == 12))
             return (pars_dir(instruct, cor, 1));
         if (m == 1 && (op_tab[i].code == 10 || op_tab[i].code == 11))
             return (pars_dir(instruct, cor, 1));

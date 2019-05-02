@@ -7,7 +7,7 @@
 
 SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
-		src/prog.c \
+		src/write_prog.c \
 		src/helper.c	\
 		src/label.c \
 		src/utils/lit_to_big_endian.c \

@@ -20,7 +20,6 @@ long deci_to_base(long i, int base)
     return (dest);
 }
 
-
 int bin_to_dec(long n, int oct)
 {
     int dest = 0;
