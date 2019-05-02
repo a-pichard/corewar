@@ -49,4 +49,5 @@ long get_lab(file_t *cor, int n)
     if (cor->file[i] != NULL)
         return (len_bin(cor->file, cor->pos - 1, i));
     my_puterr("Label doesn't exist\n");
+    return (0);
 }
