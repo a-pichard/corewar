@@ -7,6 +7,7 @@
 
 SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
+		src/prog.c \
 		src/helper.c	\
 		src/utils/lit_to_big_endian.c \
 		src/utils/my_atoi.c \
@@ -17,9 +18,11 @@ SRC	=	src/main.c	\
 		src/get_file.c	\
 		src/comment.c \
 		src/get_filename.c	\
+		src/utils/base.c \
 		src/parser_file.c	\
 		src/utils/my_strlen.c	\
 		src/utils/puts.c	\
+		src/utils/pars_type.c \
 		src/utils/my_strdup.c	\
 		src/utils/tab_utils.c	\
 		src/utils/my_strcat.c
@@ -31,6 +34,11 @@ CFLAGS	=	-Iincl -W -Wall -Wextra
 NAME	=	asm
 
 all:	$(NAME)
+
+debug:	val $(NAME)
+
+val:
+	$(eval CFLAGS	+=	-g)
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) $(CFLAGS)

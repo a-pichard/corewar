@@ -71,8 +71,8 @@ void parser_file(char **file, char *fn)
         my_puterr("empty file\n");
     name_file(file, &fd, &i);
     fd = comment_file(file, fd, &i);
-    //if (file[*i] != NULL)
-        //do
+    if (file[i] != NULL)
+        fd = prog(file, i, fd);
     free(fn);
     close(fd);
 }

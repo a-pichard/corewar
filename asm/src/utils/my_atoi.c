@@ -6,6 +6,7 @@
 */
 
 #include "asm.h"
+#include <stdio.h>
 
 long my_strtol(char *str, char **end)
 {
@@ -34,6 +35,16 @@ int my_atoi(char *str)
     long a = my_strtol(str, &end);
 
     if (*end != '\0' || a <= 0)
+        my_puterr("Invalid instruction\n");
+    return ((int) a);
+}
+
+int my_atoi_t(char *str)
+{
+    char *end;
+    long a = my_strtol(str, &end);
+
+    if (*end != '\0' || a < 0)
         my_puterr("Invalid instruction\n");
     return ((int) a);
 }

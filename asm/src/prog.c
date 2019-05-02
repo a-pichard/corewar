@@ -1,0 +1,101 @@
+/*
+** EPITECH PROJECT, 2019
+** prog.c
+** File description:
+** prog
+*/
+
+#include "asm.h"
+#include "op.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+
+char my_bin(char **str, int n, int i, op_t op_tab[])
+{
+    long bin = 0;
+    int t;
+    int len = 3;
+
+    for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
+        t = type(str[n + m + 1]);
+        if (t == T_DIR)
+            bin += 10;
+        if (t == T_REG)
+            bin += 1;
+        if (t == T_IND)
+            bin += 11;
+        bin = bin * 100;
+        len -= 1;
+    }
+    for (int i = len; i > 0; i -= 1)
+        bin = bin * 100;
+    return ((char) bin_to_dec(bin, 0));
+}
+
+int my_instruct(int i, int fd, char *instruct, int m)
+{
+    int t = type(instruct);
+    op_t op_tab[] = {OP_TAB};
+
+    if (t == T_REG)
+        fd = pars_reg(instruct, fd);
+    if (t == T_DIR) {
+        if (!m && (op_tab[i].code == 9 || op_tab[i].code == 10 ||
+                   op_tab[i].code == 12))
+            return (pars_dir(instruct, fd, 1));
+        if (m == 1 && (op_tab[i].code == 10 || op_tab[i].code == 11))
+            return (pars_dir(instruct, fd, 1));
+        if (m == 2 && op_tab[i].code == 11)
+            return (pars_dir(instruct, fd, 1));
+        fd = pars_dir(instruct, fd, 0);
+    }
+    if (t == T_IND)
+        fd = pars_ind(instruct, fd);
+    return (fd);
+}
+
+int write_instruction(char **str, int fd, int i, op_t op_tab[])
+{
+    int n = (is_lab(str[0])) ? 1 : 0;
+    char bin = my_bin(str, n, i, op_tab);
+
+    write(fd, &op_tab[i].code, 1);
+    (op_tab[i].code != 1 && op_tab[i].code != 9 && op_tab[i].code != 12 &&
+        op_tab[i].code != 15) ? write(fd, &bin, 1) : 0;
+    for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
+        fd = my_instruct(i, fd, str[n + m + 1], m);
+    }
+    return (fd);
+}
+
+int write_op(char **str, int fd, char **file, int *j)
+{
+    int i;
+    char **mem = my_str_to_word_tab(file[*j]);
+    op_t op_tab[] = {OP_TAB};
+    int n = (is_lab(str[0])) ? 1 : 0;
+
+    for (i = 0; op_tab[i].mnemonique != NULL &&
+            my_strcmp(op_tab[i].mnemonique, str[n]); i += 1);
+    if (op_tab[i].mnemonique == NULL) {
+        if (str[1] == NULL)
+            return (write_op(my_str_to_word_tab(file[pars_label(*j, file)]),
+                fd, file, j));
+        return (write_op(str, fd, file, j));
+    }
+    if (my_strcmp(str[n], mem[n]))
+        *j = pars_label(*j, file);
+    return (write_instruction(str, fd, i, op_tab));
+}
+
+int prog(char **file, int i, int fd)
+{
+    while (file[i] != NULL) {
+        while (file[i] != NULL && empty_line(file[i]))
+            i += 1;
+        fd = write_op(my_str_to_word_tab(file[i]), fd, file, &i);
+        i += 1;
+    }
+    return (fd);
+}
