@@ -20,34 +20,44 @@ int pars_reg(char *str, int fd)
     return (fd);
 }
 
-int pars_dir(char *str, int fd, int index)
+file_t *pars_dir(char *str, file_t *cor, int index)
 {
     char *dest = malloc(sizeof(char) * ((index) ? 3 : 5));
-    int n = 0;   //temp
+    int n = 0;
 
     (dest == NULL) ? my_puterr("malloc err\n") : 0;
     str++;
-    if (*str != LABEL_CHAR)
-        n = (index) ? my_atoi_t(str) : lit_to_big_endian(my_atoi_t(str));
-    dest = (char *) &n;    //pars_label
-    if (index) {
-        write(fd, &dest[1], 1);
-        write(fd, &dest[0], 1);
+    if (*str == LABEL_CHAR) {
+        str++;
+        cor->label = str;
+        (cor->label[0] == '\0') ? my_puterr("Undefined label\n") : 0;
+        n = (index) ? get_lab(cor, 2) : lit_to_big_endian(get_lab(cor, 4));
     } else
-        write(fd, dest, 4);
-    return (fd);
+        n = (index) ? my_atoi_t(str) : lit_to_big_endian(my_atoi_t(str));
+    dest = (char *) &n;
+    if (index) {
+        write(cor->fd, &dest[1], 1);
+        write(cor->fd, &dest[0], 1);
+    } else
+        write(cor->fd, dest, 4);
+    return (cor);
 }
 
-int pars_ind(char *str, int fd)
+file_t *pars_ind(char *str, file_t *cor)
 {
     char *dest = malloc(sizeof(char) * 3);
-    int n = 0;    //temp
+    int n = 0;
 
     (dest == NULL) ? my_puterr("malloc err\n") : 0;
-    if (*str != LABEL_CHAR)
+    if (*str == LABEL_CHAR) {
+        str++;
+        cor->label = str;
+        (cor->label[0] == '\0') ? my_puterr("Undefined label\n") : 0;
+        n = get_lab(cor, 2);
+    } else
         n = my_atoi_t(str);
-    dest = (char *) &n;    //pars_label
-    write(fd, &dest[1], 1);
-    write(fd, &dest[0], 1);
-    return (fd);
+    dest = (char *) &n;
+    write(cor->fd, &dest[1], 1);
+    write(cor->fd, &dest[0], 1);
+    return (cor);
 }

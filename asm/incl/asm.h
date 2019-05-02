@@ -8,8 +8,18 @@
 #ifndef ASM_H_
 #define ASM_H_
 
-int pars_ind(char *str, int fd);
-int pars_dir(char *str, int fd, int index);
+typedef struct file_s
+{
+    int fd;
+    char **file;
+    int start;
+    int pos;
+    char *label;
+} file_t;
+
+int my_strcmp_lab(char const *s1, char const *s2);
+file_t *pars_ind(char *str, file_t *cor);
+file_t *pars_dir(char *str, file_t *cor, int index);
 int pars_reg(char *str, int fd);
 int is_lab(char *str);
 int is_reg(char *str);
@@ -44,15 +54,7 @@ void parser_file(char **file, char *fn);
 char *get_quotes(char *str);
 int empty_line(char *str);
 char **getcomment(char **file);
-int len_bin(char **file, int i);
+int len_bin(char **file, int i, int end);
 int prog(char **file, int i, int fd);
-
-typedef struct file_s
-{
-    int fd;
-    char **file;
-    int pos;
-    char *label;
-} file_t;
-
+long get_lab(file_t *cor, int n);
 #endif

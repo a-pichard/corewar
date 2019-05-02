@@ -33,43 +33,43 @@ char my_bin(char **str, int n, int i, op_t op_tab[])
     return ((char) bin_to_dec(bin, 0));
 }
 
-int my_instruct(int i, int fd, char *instruct, int m)
+file_t *my_instruct(int i, file_t *cor, char *instruct, int m)
 {
     int t = type(instruct);
     op_t op_tab[] = {OP_TAB};
 
     if (t == T_REG)
-        fd = pars_reg(instruct, fd);
+        cor->fd = pars_reg(instruct, cor->fd);
     if (t == T_DIR) {
         if (!m && (op_tab[i].code == 9 || op_tab[i].code == 10 ||
                    op_tab[i].code == 12))
-            return (pars_dir(instruct, fd, 1));
+            return (pars_dir(instruct, cor, 1));
         if (m == 1 && (op_tab[i].code == 10 || op_tab[i].code == 11))
-            return (pars_dir(instruct, fd, 1));
+            return (pars_dir(instruct, cor, 1));
         if (m == 2 && op_tab[i].code == 11)
-            return (pars_dir(instruct, fd, 1));
-        fd = pars_dir(instruct, fd, 0);
+            return (pars_dir(instruct, cor, 1));
+        cor = pars_dir(instruct, cor, 0);
     }
     if (t == T_IND)
-        fd = pars_ind(instruct, fd);
-    return (fd);
+        cor = pars_ind(instruct, cor);
+    return (cor);
 }
 
-int write_instruction(char **str, int fd, int i, op_t op_tab[])
+file_t *write_instruction(char **str, file_t *cor, int i, op_t op_tab[])
 {
     int n = (is_lab(str[0])) ? 1 : 0;
     char bin = my_bin(str, n, i, op_tab);
 
-    write(fd, &op_tab[i].code, 1);
+    write(cor->fd, &op_tab[i].code, 1);
     (op_tab[i].code != 1 && op_tab[i].code != 9 && op_tab[i].code != 12 &&
-        op_tab[i].code != 15) ? write(fd, &bin, 1) : 0;
+        op_tab[i].code != 15) ? write(cor->fd, &bin, 1) : 0;
     for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
-        fd = my_instruct(i, fd, str[n + m + 1], m);
+        cor = my_instruct(i, cor, str[n + m + 1], m);
     }
-    return (fd);
+    return (cor);
 }
 
-int write_op(char **str, int fd, char **file, int *j)
+file_t *write_op(char **str, file_t *cor, char **file, int *j)
 {
     int i;
     char **mem = my_str_to_word_tab(file[*j]);
@@ -81,21 +81,30 @@ int write_op(char **str, int fd, char **file, int *j)
     if (op_tab[i].mnemonique == NULL) {
         if (str[1] == NULL)
             return (write_op(my_str_to_word_tab(file[pars_label(*j, file)]),
-                fd, file, j));
-        return (write_op(str, fd, file, j));
+                cor, file, j));
+        return (write_op(str, cor, file, j));
     }
     if (my_strcmp(str[n], mem[n]))
         *j = pars_label(*j, file);
-    return (write_instruction(str, fd, i, op_tab));
+    cor->pos = *j;
+    return (write_instruction(str, cor, i, op_tab));
 }
 
 int prog(char **file, int i, int fd)
 {
+    file_t *cor = malloc(sizeof(file_t));
+
+    (cor == NULL) ? my_puterr("malloc err\n") : 0;
+    cor->file = file;
+    cor->fd = fd;
+    cor->start = i;
     while (file[i] != NULL) {
         while (file[i] != NULL && empty_line(file[i]))
             i += 1;
-        fd = write_op(my_str_to_word_tab(file[i]), fd, file, &i);
-        i += 1;
+        if (file[i] != NULL) {
+            cor = write_op(my_str_to_word_tab(file[i]), cor, file, &i);
+            i += 1;
+        }
     }
-    return (fd);
+    return (cor->fd);
 }

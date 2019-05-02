@@ -15,9 +15,7 @@ int main(int ac, char **av)
 
     print_tab(file);
     my_putchar('\n');
-    my_putstr(filename);
     parser_file(file, filename);
-    free(filename);
     destroy_tab(file);
     return (0);
 }

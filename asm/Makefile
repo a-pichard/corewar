@@ -9,6 +9,7 @@ SRC	=	src/main.c	\
 		src/utils/my_strcmp.c \
 		src/prog.c \
 		src/helper.c	\
+		src/label.c \
 		src/utils/lit_to_big_endian.c \
 		src/utils/my_atoi.c \
 		src/utils/operator.c \
@@ -35,7 +36,7 @@ NAME	=	asm
 
 all:	$(NAME)
 
-debug:	val $(NAME)
+debug:	val re
 
 val:
 	$(eval CFLAGS	+=	-g)

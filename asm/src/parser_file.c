@@ -22,7 +22,7 @@ void name_file(char **file, int *fd, int *i)
     if (my_strcmp(line[0], NAME_CMD_STRING))
         my_puterr("need the name first\n");
     if (line[1] == NULL || line[2] != NULL ||
-        line[1][0] != '"' || line[1][my_strlen(line[1] - 1)] != '"')
+        line[1][0] != '"' || line[1][my_strlen(line[1]) - 1] != '"')
         my_puterr("syntax error\n");
     write(*fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
     for (int i = 0; i < PROG_NAME_LENGTH - my_strlen(line[1]) + 6; i += 1)
@@ -43,10 +43,10 @@ int comment_file(char **file, int fd, int *i)
     if (my_strcmp(line[0], COMMENT_CMD_STRING))
         my_puterr("need comment\n");
     if (line[1] == NULL || line[2] != NULL ||
-        line[1][0] != '"' || line[1][my_strlen(line[1] - 1)] != '"')
+        line[1][0] != '"' || line[1][my_strlen(line[1]) - 1] != '"')
         my_puterr("syntax error\n");
     *i += 1;
-    nb = lit_to_big_endian(len_bin(file, *i));
+    nb = lit_to_big_endian(len_bin(file, *i, -1));
     write(fd, &nb, sizeof(nb));
     write(fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
     for (int i = 0; i < COMMENT_LENGTH + 6 - my_strlen(line[1]); i += 1)
