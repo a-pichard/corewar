@@ -14,6 +14,7 @@ void print_tab(char **tab)
 
     while (tab[i] != NULL) {
         my_putstr(tab[i]);
+        my_putchar('\n');
         i++;
     }
 }
@@ -22,6 +23,8 @@ void destroy_tab(char **tab)
 {
     int i = 0;
 
+    if (tab == NULL)
+        return;
     while (tab[i] != NULL) {
         free(tab[i]);
         i++;

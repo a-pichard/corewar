@@ -57,4 +57,6 @@ char **getcomment(char **file);
 int len_bin(char **file, int i, int end);
 int prog(char **file, int i, int fd);
 long get_lab(file_t *cor, int n);
+void check_label(char **file, int i);
+
 #endif

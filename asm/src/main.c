@@ -13,8 +13,6 @@ int main(int ac, char **av)
     char **file = get_file(ac, av);
     char *filename = get_filename(av[1]);
 
-    print_tab(file);
-    my_putchar('\n');
     parser_file(file, filename);
     destroy_tab(file);
     return (0);

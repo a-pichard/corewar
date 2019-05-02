@@ -71,6 +71,7 @@ void parser_file(char **file, char *fn)
         my_puterr("empty file\n");
     name_file(file, &fd, &i);
     fd = comment_file(file, fd, &i);
+    check_label(file, i);
     if (file[i] != NULL)
         fd = prog(file, i, fd);
     free(fn);
