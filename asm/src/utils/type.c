@@ -7,6 +7,7 @@
 
 #include "asm.h"
 #include "op.h"
+#include <stdio.h>
 
 int is_lab(char *str)
 {

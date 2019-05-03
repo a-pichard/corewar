@@ -51,7 +51,7 @@ char *get_filename(char *path);
 char **my_str_to_word_tab(char *str);
 int get_pathlen(char *path);
 void parser_file(char **file, char *fn);
-char *get_quotes(char *str);
+char *get_quotes(char *str, int n);
 int empty_line(char *str);
 char **getcomment(char **file);
 int len_bin(char **file, int i, int end);

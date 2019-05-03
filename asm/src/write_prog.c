@@ -19,6 +19,8 @@ char my_bin(char **str, int n, int i, op_t op_tab[])
 
     for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
         t = type(str[n + m + 1]);
+        if (t == -1)
+            my_puterr("invalid instruction\n");
         if (t == T_DIR)
             bin += 10;
         if (t == T_REG)

@@ -49,7 +49,7 @@ int empty_line(char *str)
     return (1);
 }
 
-char *get_quotes(char *str)
+char *get_quotes(char *str, int n)
 {
     char *dest = malloc(sizeof(char) * my_strlen(str));
     int k = 0;
@@ -59,5 +59,7 @@ char *get_quotes(char *str)
         k += 1;
     }
     dest[k] = '\0';
+    if (my_strlen(str) > n)
+        my_puterr("name or comment too long\n");
     return (dest);
 }
