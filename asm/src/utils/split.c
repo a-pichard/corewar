@@ -34,7 +34,7 @@ char **putstr_array(char **table, char *buf)
             (!q && !m && buf[k] == '"') ? q = 1 : 0;
             str[m++] = buf[k++];
         }
-        m?str[m] = '\0':0;
+        m?str[m] = '\0':(free(str));
         m?table[n++] = str:0;
         if (buf[k] == '\0')
             break;

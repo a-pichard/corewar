@@ -68,6 +68,9 @@ file_t *write_instruction(char **str, file_t *cor, int i, op_t op_tab[])
     for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
         cor = my_instruct(i, cor, str[n + m + 1], m);
     }
+    for (int i = 0; str[i] != NULL; i += 1)
+        free(str[i]);
+    free(str);
     return (cor);
 }
 
@@ -83,19 +86,20 @@ file_t *write_op(char **str, file_t *cor, char **file, int *j)
     if (op_tab[i].mnemonique == NULL || str[n] == NULL) {
         if (str[1] == NULL) {
             return (write_op(my_str_to_word_tab(file[pars_label(*j, file)]),
-                cor, file, j));
+                cor, file, destroy_array_t(mem, destroy_array_t(str, j))));
         }
-        return (write_op(str, cor, file, j));
+        return (write_op(str, cor, file, destroy_array_t(mem, j)));
     }
     if (str[n] != NULL && my_strcmp(str[n], mem[n]))
         *j = pars_label(*j, file);
     cor->pos = *j;
-    return (write_instruction(str, cor, i, op_tab));
+    return (write_instruction(str, cor, destroy_array(mem, i), op_tab));
 }
 
 int prog(char **file, int i, int fd)
 {
     file_t *cor = malloc(sizeof(file_t));
+    int dest;
 
     (cor == NULL) ? my_puterr("malloc err\n") : 0;
     cor->file = file;
@@ -109,5 +113,7 @@ int prog(char **file, int i, int fd)
             i += 1;
         }
     }
-    return (cor->fd);
+    dest = cor->fd;
+    free(cor);
+    return (dest);
 }
