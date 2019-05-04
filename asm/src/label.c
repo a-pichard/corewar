@@ -13,10 +13,10 @@
 int my_lab(char **str, file_t *cor)
 {
     if (str[0] == NULL)
-        return (0);
+        return (destroy_array(str, 0));
     if (is_lab(str[0]) && !my_strcmp_lab(str[0], cor->label))
-        return (1);
-    return (0);
+        return (destroy_array(str, 1));
+    return (destroy_array(str, 0));
 }
 
 long my_pow(long n, int y)
@@ -41,7 +41,7 @@ long get_lab(file_t *cor, int n)
             break;
     }
     if (i > cor->start)
-        return (n - len_bin(cor->file, i - 1, cor->pos));
+        return (n - len_bin(cor->file, i, cor->pos));
     for (i = cor->pos; cor->file[i] != NULL; i += 1) {
         while (cor->file[i] != NULL && empty_line(cor->file[i]))
             i += 1;
@@ -49,7 +49,7 @@ long get_lab(file_t *cor, int n)
             break;
     }
     if (cor->file[i] != NULL)
-        return (len_bin(cor->file, cor->pos - 1, i));
+        return (len_bin(cor->file, cor->pos, i));
     my_puterr("Label doesn't exist\n");
     return (0);
 }

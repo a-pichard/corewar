@@ -29,7 +29,7 @@ int instruction(char **str, int n, int i, op_t op_tab[])
     for (k = n; str[k] != NULL; k += 1);
     (k - n - 1 != op_tab[i].nbr_args) ? my_puterr("Invalid instruction\n") : 0;
     for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
-        if (!((mem = type(str[n + m + 1])) & op_tab[i].type[m]) || mem == -1)
+        if ((mem = type(str[n + m + 1])) == -1 || !(mem & op_tab[i].type[m]))
             my_puterr("Invalid instruction\n");
         (mem == T_DIR) ? mem = DIR_SIZE : (mem == T_IND) ? mem = IND_SIZE : 0;
         (mem == DIR_SIZE && !m && (op_tab[i].code == 9 || op_tab[i].code == 10
@@ -39,7 +39,7 @@ int instruction(char **str, int n, int i, op_t op_tab[])
         (mem == DIR_SIZE && m == 2 && op_tab[i].code == 11) ?
             dest += 2 : (dest += mem);
     }
-    return (dest);
+    return (destroy_array(str, dest));
 }
 
 int pars_label(int i, char **file)
@@ -66,10 +66,10 @@ int operator(char **str, int n, char **file, int *j)
             my_puterr("Invalid label\n");
         if (str[1] == NULL)
             return (operator(my_str_to_word_tab(file[pars_label(*j, file)]),
-                0, file, j));
-        return (operator(str, 1, file, j));
+                destroy_array(mem, destroy_array(str, 0)), file, j));
+        return (operator(str, destroy_array(mem, 1), file, j));
     }
     if (my_strcmp(str[n], mem[n]))
         *j = pars_label(*j, file);
-    return (instruction(str, n, i, op_tab));
+    return (instruction(str, n, destroy_array(mem, i), op_tab));
 }

@@ -41,6 +41,8 @@ int operator(char **str, int n, char **file, int *j);
 int bin_to_dec(long n, int oct);
 int pars_label(int i, char **file);
 int my_atoi_t(char *str);
+int destroy_array(char **tab, int ret);
+int *destroy_array_t(char **tab, int *ret);
 
 void helper(char *prg_name, int exit_status);
 
@@ -50,8 +52,8 @@ char **get_file(char *bin_name, char *fn);
 char *get_filename(char *path);
 char **my_str_to_word_tab(char *str);
 int get_pathlen(char *path);
-void parser_file(char **file, char *fn);
-char *get_quotes(char *str);
+char **parser_file(char **file, char *fn);
+char *get_quotes(char *str, int n);
 int empty_line(char *str);
 char **getcomment(char **file);
 int len_bin(char **file, int i, int end);

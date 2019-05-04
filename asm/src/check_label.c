@@ -73,9 +73,13 @@ static int extreme_checker_exe(char **labels)
 
 void check_label(char **file, int i)
 {
-    char **labels = get_labels(file, i);
-    int ret = extreme_checker_exe(labels);
+    char **labels;
+    int ret;
 
+    if (file[i] == NULL)
+        return;
+    labels = get_labels(file, i);
+    ret = extreme_checker_exe(labels);
     destroy_tab(labels);
     if (ret)
         my_puterr("Labels must be unique.\n");

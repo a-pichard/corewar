@@ -24,6 +24,7 @@ char **my_comment(char *str, int i, char **file, int k)
     for (int k = j; str[k - 1] != '\0'; k += 1)
         dest[k] = '\0';
     file[k] = dest;
+    free(dest);
     return (file);
 }
 
@@ -49,15 +50,12 @@ int empty_line(char *str)
     return (1);
 }
 
-char *get_quotes(char *str)
+char *get_quotes(char *str, int n)
 {
-    char *dest = malloc(sizeof(char) * my_strlen(str));
-    int k = 0;
-
-    for (int i = 1; str[i + 1]; i += 1) {
-        dest[k] = str[i];
-        k += 1;
-    }
-    dest[k] = '\0';
-    return (dest);
+    for (int i = 0; str[i]; i += 1)
+        str[i] = str[i + 1];
+    str[my_strlen(str) - 1] = '\0';
+    if (my_strlen(str) > n)
+        my_puterr("name or comment too long\n");
+    return (str);
 }

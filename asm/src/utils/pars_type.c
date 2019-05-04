@@ -22,10 +22,9 @@ int pars_reg(char *str, int fd)
 
 file_t *pars_dir(char *str, file_t *cor, int index)
 {
-    char *dest = malloc(sizeof(char) * ((index) ? 3 : 5));
+    char *dest = NULL;
     int n = 0;
 
-    (dest == NULL) ? my_puterr("malloc err\n") : 0;
     str++;
     if (*str == LABEL_CHAR) {
         str++;
@@ -45,10 +44,9 @@ file_t *pars_dir(char *str, file_t *cor, int index)
 
 file_t *pars_ind(char *str, file_t *cor)
 {
-    char *dest = malloc(sizeof(char) * 3);
+    char *dest = NULL;
     int n = 0;
 
-    (dest == NULL) ? my_puterr("malloc err\n") : 0;
     if (*str == LABEL_CHAR) {
         str++;
         cor->label = str;

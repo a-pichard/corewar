@@ -24,14 +24,15 @@ void name_file(char **file, int *fd, int *i)
     if (line[1] == NULL || line[2] != NULL ||
         line[1][0] != '"' || line[1][my_strlen(line[1]) - 1] != '"')
         my_puterr("syntax error\n");
-    write(*fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
-    for (int i = 0; i < PROG_NAME_LENGTH - my_strlen(line[1]) + 6; i += 1)
+    write(*fd, get_quotes(line[1], PROG_NAME_LENGTH), my_strlen(line[1]) - 2);
+    for (int i = 0; i < PROG_NAME_LENGTH - my_strlen(line[1]) + 4; i += 1)
         write(*fd, &n, sizeof(n));
     *i += 1;
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
     if (file[*i] == NULL)
         my_puterr("empty file, only name\n");
+    destroy_tab(line);
 }
 
 int comment_file(char **file, int fd, int *i)
@@ -48,15 +49,15 @@ int comment_file(char **file, int fd, int *i)
     *i += 1;
     nb = lit_to_big_endian(len_bin(file, *i, -1));
     write(fd, &nb, sizeof(nb));
-    write(fd, get_quotes(line[1]), my_strlen(line[1]) - 2);
-    for (int i = 0; i < COMMENT_LENGTH + 6 - my_strlen(line[1]); i += 1)
+    write(fd, get_quotes(line[1], COMMENT_LENGTH), my_strlen(line[1]) - 2);
+    for (int i = 0; i < COMMENT_LENGTH + 4 - my_strlen(line[1]); i += 1)
         write(fd, &n, sizeof(n));
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
-    return (fd);
+    return (destroy_array(line, fd));
 }
 
-void parser_file(char **file, char *fn)
+char **parser_file(char **file, char *fn)
 {
     int i;
     int fd;
@@ -76,4 +77,5 @@ void parser_file(char **file, char *fn)
         fd = prog(file, i, fd);
     free(fn);
     close(fd);
+    return (file);
 }
