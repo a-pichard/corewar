@@ -9,24 +9,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void check_args(int ac, char **av)
+static void check_args(char *bin_name, char *fn)
 {
     int len_str;
 
-    if (ac != 2)
-        helper(av[0], 84);
-    if (!my_strcmp(av[1], "-h"))
-        helper(av[0], 0);
-    len_str = my_strlen(av[1]) - 1;
+    len_str = my_strlen(fn) - 1;
     if (len_str < 2)
-        helper(av[0], 84);
-    if (av[1][len_str] != 's' || av[1][len_str - 1] != '.')
-        helper(av[0], 84);
-    if (get_pathlen(av[1]) < 1)
-        helper(av[0], 84);
+        helper(bin_name, 84);
+    if (fn[len_str] != 's' || fn[len_str - 1] != '.')
+        helper(bin_name, 84);
+    if (get_pathlen(fn) < 1)
+        helper(bin_name, 84);
 }
 
-char **my_read(FILE *file)
+static char **my_read(FILE *file)
 {
     char *temp = NULL;
     char **data = NULL;
@@ -48,13 +44,13 @@ char **my_read(FILE *file)
     return (data);
 }
 
-char **get_file(int ac, char **av)
+char **get_file(char *bin_name, char *fn)
 {
     char **data = NULL;
     FILE *file;
 
-    check_args(ac, av);
-    if ((file = fopen(av[1], "r")) == NULL)
+    check_args(bin_name, fn);
+    if ((file = fopen(fn, "r")) == NULL)
         my_puterr("file doesn't exists.\n");
     data = my_read(file);
     fclose(file);

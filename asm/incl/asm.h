@@ -46,7 +46,7 @@ void helper(char *prg_name, int exit_status);
 
 int char_instr(char *str, char c);
 char **getcomment(char **file);
-char **get_file(int ac, char **av);
+char **get_file(char *bin_name, char *fn);
 char *get_filename(char *path);
 char **my_str_to_word_tab(char *str);
 int get_pathlen(char *path);
