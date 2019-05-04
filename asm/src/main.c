@@ -27,7 +27,6 @@ int main(int ac, char **av)
         file = get_file(av[0], av[i]);
         filename = get_filename(av[i]);
         destroy_tab(parser_file(file, filename));
-        //free(filename);
         i++;
     }
     return (0);
