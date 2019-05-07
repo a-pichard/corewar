@@ -5,7 +5,10 @@
 ## Makefile
 ##
 
-SRC	=	src/main.c
+SRC	=	src/main.c	\
+		src/helper.c	\
+		src/utils/my_strlen.c	\
+		src/utils/puts.c
 
 OBJ	=	$(SRC:.c=.o)
 
