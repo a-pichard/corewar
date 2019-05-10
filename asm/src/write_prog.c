@@ -96,10 +96,9 @@ file_t *write_op(char **str, file_t *cor, char **file, int *j)
     return (write_instruction(str, cor, destroy_array(mem, i), op_tab));
 }
 
-buf_t *prog(char **file, int i, buf_t *buf)
+file_t *prog(char **file, int i, buf_t *buf)
 {
     file_t *cor = malloc(sizeof(file_t));
-    buf_t *dest;
 
     (cor == NULL) ? my_puterr("malloc err\n") : 0;
     cor->file = file;
@@ -113,6 +112,5 @@ buf_t *prog(char **file, int i, buf_t *buf)
             i += 1;
         }
     }
-    dest = cor->buf;
-    return (dest);
+    return (cor);
 }

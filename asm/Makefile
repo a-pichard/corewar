@@ -37,7 +37,7 @@ NAME	=	asm
 
 all:	$(NAME)
 
-debug:	val re
+debug:	val $(NAME)
 
 val:
 	$(eval CFLAGS	+=	-g)

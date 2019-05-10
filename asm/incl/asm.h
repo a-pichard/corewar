@@ -66,7 +66,7 @@ char *get_quotes(char *str, int n);
 int empty_line(char *str);
 char **getcomment(char **file);
 int len_bin(char **file, int i, int end);
-buf_t *prog(char **file, int i, buf_t *buf);
+file_t *prog(char **file, int i, buf_t *buf);
 long get_lab(file_t *cor, int n);
 void check_label(char **file, int i);
 buf_t *add_buf(buf_t *buf, char *str, int fr);

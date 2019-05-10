@@ -71,6 +71,7 @@ char **parser_file(char **file, char *fn)
 {
     int i;
     buf_t *buf = malloc(sizeof(buf_t));
+    file_t *cor;
 
     buf->size = 0;
     fn = my_strcat_bis(fn, ".cor");
@@ -82,7 +83,8 @@ char **parser_file(char **file, char *fn)
     buf = comment_file(file, buf, &i);
     check_label(file, i);
     if (file[i] != NULL)
-        buf = prog(file, i, buf);
-    write_file(fn, buf);
+        cor = prog(file, i, buf);
+    write_file(fn, cor->buf);
+    free(cor);
     return (file);
 }
