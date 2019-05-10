@@ -6,8 +6,13 @@
 */
 
 #include "asm.h"
+#include "op.h"
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 static void check_args(char *bin_name, char *fn)
 {
@@ -55,4 +60,20 @@ char **get_file(char *bin_name, char *fn)
     data = my_read(file);
     fclose(file);
     return (data);
+}
+
+void write_file(char *fn, buf_t *buf)
+{
+    int fd = open(fn, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+    int n = lit_to_big_endian(COREWAR_EXEC_MAGIC);
+
+    if (fd == -1)
+        my_puterr("no open\n");
+    write(fd, &n, sizeof(n));
+    for (int i = 0; i < buf->size; i += 1)
+        write(fd, &buf->buf[i], 1);
+    free(fn);
+    close(fd);
+    free(buf->buf);
+    free(buf);
 }

@@ -54,3 +54,28 @@ char **my_str_to_word_tab(char *str)
     (table = malloc(sizeof(char *) * (j + 1))) == NULL ? exit(84) : 0;
     return (putstr_array(table, str));
 }
+
+char *my_revstr(char *str, int size)
+{
+    int i = 0;
+    int j = 0;
+    char memo[2] = {0};
+
+    while (i != size)
+        i += 1;
+    while (j < i / 2) {
+        memo[0] = str[j];
+        str[j] = str[i - j - 1];
+        str[i - j - 1] = memo[0];
+        j += 1;
+    }
+    return (str);
+}
+
+int octet_size(int n, int j)
+{
+    for (int i = 0; i < j; i += 1) {
+        n = n / 256;
+    }
+    return (n % 256);
+}

@@ -41,7 +41,7 @@ file_t *my_instruct(int i, file_t *cor, char *instruct, int m)
     op_t op_tab[] = {OP_TAB};
 
     if (t == T_REG)
-        cor->fd = pars_reg(instruct, cor->fd);
+        cor->buf = pars_reg(instruct, cor->buf);
     if (t == T_DIR) {
         if (!m && (op_tab[i].code == 9 || op_tab[i].code == 10 ||
                 op_tab[i].code == 12))
@@ -62,9 +62,9 @@ file_t *write_instruction(char **str, file_t *cor, int i, op_t op_tab[])
     int n = (is_lab(str[0])) ? 1 : 0;
     char bin = my_bin(str, n, i, op_tab);
 
-    write(cor->fd, &op_tab[i].code, 1);
+    cor->buf = add_char_buf(cor->buf, op_tab[i].code, 1);
     (op_tab[i].code != 1 && op_tab[i].code != 9 && op_tab[i].code != 12 &&
-        op_tab[i].code != 15) ? write(cor->fd, &bin, 1) : 0;
+        op_tab[i].code != 15) ? cor->buf = add_char_buf(cor->buf, bin, 1) : 0;
     for (int m = 0; m != op_tab[i].nbr_args; m += 1) {
         cor = my_instruct(i, cor, str[n + m + 1], m);
     }
@@ -96,14 +96,14 @@ file_t *write_op(char **str, file_t *cor, char **file, int *j)
     return (write_instruction(str, cor, destroy_array(mem, i), op_tab));
 }
 
-int prog(char **file, int i, int fd)
+buf_t *prog(char **file, int i, buf_t *buf)
 {
     file_t *cor = malloc(sizeof(file_t));
-    int dest;
+    buf_t *dest;
 
     (cor == NULL) ? my_puterr("malloc err\n") : 0;
     cor->file = file;
-    cor->fd = fd;
+    cor->buf = buf;
     cor->start = i;
     while (file[i] != NULL) {
         while (file[i] != NULL && empty_line(file[i]))
@@ -113,7 +113,6 @@ int prog(char **file, int i, int fd)
             i += 1;
         }
     }
-    dest = cor->fd;
-    free(cor);
+    dest = cor->buf;
     return (dest);
 }

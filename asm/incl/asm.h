@@ -8,9 +8,15 @@
 #ifndef ASM_H_
 #define ASM_H_
 
+typedef struct buf_s
+{
+    int *buf;
+    int size;
+} buf_t;
+
 typedef struct file_s
 {
-    int fd;
+    buf_t *buf;
     char **file;
     int start;
     int pos;
@@ -20,7 +26,7 @@ typedef struct file_s
 int my_strcmp_lab(char const *s1, char const *s2);
 file_t *pars_ind(char *str, file_t *cor);
 file_t *pars_dir(char *str, file_t *cor, int index);
-int pars_reg(char *str, int fd);
+buf_t *pars_reg(char *str, buf_t *buf);
 int is_lab(char *str);
 int is_reg(char *str);
 int is_dir(char *str);
@@ -43,6 +49,9 @@ int pars_label(int i, char **file);
 int my_atoi_t(char *str);
 int destroy_array(char **tab, int ret);
 int *destroy_array_t(char **tab, int *ret);
+int *my_realloc(int *str, char *src, int fr);
+char *my_revstr(char *str, int size);
+int octet_size(int n, int j);
 
 void helper(char *prg_name, int exit_status);
 
@@ -57,8 +66,12 @@ char *get_quotes(char *str, int n);
 int empty_line(char *str);
 char **getcomment(char **file);
 int len_bin(char **file, int i, int end);
-int prog(char **file, int i, int fd);
+buf_t *prog(char **file, int i, buf_t *buf);
 long get_lab(file_t *cor, int n);
 void check_label(char **file, int i);
-
+buf_t *add_buf(buf_t *buf, char *str, int fr);
+buf_t *add_char_buf(buf_t *buf, int c, int fr);
+buf_t *add_size_buf(buf_t *buf, char *src, int fr, int size);
+buf_t *destroy_array_buf(char **tab, buf_t *buf);
+void write_file(char *fn, buf_t *buf);
 #endif

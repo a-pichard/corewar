@@ -14,7 +14,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-void name_file(char **file, int *fd, int *i)
+buf_t *add_buf(buf_t *buf, char *str, int fr)
+{
+    (!fr) ? buf->buf = NULL : 0;
+    buf->buf = my_realloc(buf->buf, str, fr);
+    buf->size += my_strlen(str);
+    return (buf);
+}
+
+void name_file(char **file, buf_t **buf, int *i)
 {
     char **line = my_str_to_word_tab(file[*i]);
     char n = 0;
@@ -24,9 +32,9 @@ void name_file(char **file, int *fd, int *i)
     if (line[1] == NULL || line[2] != NULL ||
         line[1][0] != '"' || line[1][my_strlen(line[1]) - 1] != '"')
         my_puterr("syntax error\n");
-    write(*fd, get_quotes(line[1], PROG_NAME_LENGTH), my_strlen(line[1]) - 2);
+    *buf = add_buf(*buf, get_quotes(line[1], PROG_NAME_LENGTH), 0);
     for (int i = 0; i < PROG_NAME_LENGTH - my_strlen(line[1]) + 4; i += 1)
-        write(*fd, &n, sizeof(n));
+        *buf = add_char_buf(*buf, n, 1);
     *i += 1;
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
@@ -35,11 +43,12 @@ void name_file(char **file, int *fd, int *i)
     destroy_tab(line);
 }
 
-int comment_file(char **file, int fd, int *i)
+buf_t *comment_file(char **file, buf_t *buf, int *i)
 {
     char **line = my_str_to_word_tab(file[*i]);
     char n = 0;
-    int nb;
+    char *nb = NULL;
+    int mem;
 
     if (my_strcmp(line[0], COMMENT_CMD_STRING))
         my_puterr("need comment\n");
@@ -47,35 +56,33 @@ int comment_file(char **file, int fd, int *i)
         line[1][0] != '"' || line[1][my_strlen(line[1]) - 1] != '"')
         my_puterr("syntax error\n");
     *i += 1;
-    nb = lit_to_big_endian(len_bin(file, *i, -1));
-    write(fd, &nb, sizeof(nb));
-    write(fd, get_quotes(line[1], COMMENT_LENGTH), my_strlen(line[1]) - 2);
+    mem = lit_to_big_endian(len_bin(file, *i, -1));
+    nb = (char *) &mem;
+    buf = add_size_buf(buf, nb, 1, 4);
+    buf = add_buf(buf, get_quotes(line[1], COMMENT_LENGTH), 1);
     for (int i = 0; i < COMMENT_LENGTH + 4 - my_strlen(line[1]); i += 1)
-        write(fd, &n, sizeof(n));
+        buf = add_char_buf(buf, n, 1);
     while (file[*i] != NULL && empty_line(file[*i]))
         *i += 1;
-    return (destroy_array(line, fd));
+    return (destroy_array_buf(line, buf));
 }
 
 char **parser_file(char **file, char *fn)
 {
     int i;
-    int fd;
-    int n = lit_to_big_endian(COREWAR_EXEC_MAGIC);
+    buf_t *buf = malloc(sizeof(buf_t));
 
+    buf->size = 0;
     fn = my_strcat_bis(fn, ".cor");
-    fd = open(fn, O_CREAT | O_WRONLY | O_TRUNC, 0664);
     file = getcomment(file);
-    write(fd, &n, sizeof(n));
     for (i = 0; file[i] != NULL && empty_line(file[i]); i += 1);
     if (file[i] == NULL)
         my_puterr("empty file\n");
-    name_file(file, &fd, &i);
-    fd = comment_file(file, fd, &i);
+    name_file(file, &buf, &i);
+    buf = comment_file(file, buf, &i);
     check_label(file, i);
     if (file[i] != NULL)
-        fd = prog(file, i, fd);
-    free(fn);
-    close(fd);
+        buf = prog(file, i, buf);
+    write_file(fn, buf);
     return (file);
 }

@@ -9,15 +9,16 @@
 #include "op.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int pars_reg(char *str, int fd)
+buf_t *pars_reg(char *str, buf_t *buf)
 {
     char dest;
 
     str++;
     dest = (char) my_atoi(str);
-    write(fd, &dest, 1);
-    return (fd);
+    buf = add_char_buf(buf, dest, 1);
+    return (buf);
 }
 
 file_t *pars_dir(char *str, file_t *cor, int index)
@@ -35,16 +36,15 @@ file_t *pars_dir(char *str, file_t *cor, int index)
         n = (index) ? my_atoi_t(str) : lit_to_big_endian(my_atoi_t(str));
     dest = (char *) &n;
     if (index) {
-        for (int i = 0; i  < T_DIR; i += 1)
-            write(cor->fd, &dest[T_DIR - 1 - i], 1);
+        for (int i = 0; i < T_DIR; i += 1)
+            cor->buf = add_char_buf(cor->buf, octet_size(n, T_DIR - 1 - i), 1);
     } else
-        write(cor->fd, dest, T_IND);
+        cor->buf = add_size_buf(cor->buf, dest, 1, 4);
     return (cor);
 }
 
 file_t *pars_ind(char *str, file_t *cor)
 {
-    char *dest = NULL;
     int n = 0;
 
     if (*str == LABEL_CHAR) {
@@ -54,8 +54,7 @@ file_t *pars_ind(char *str, file_t *cor)
         n = get_lab(cor, T_DIR);
     } else
         n = my_atoi_t(str);
-    dest = (char *) &n;
-    for (int i = 0; i  < T_DIR; i += 1)
-        write(cor->fd, &dest[T_DIR - 1 - i], 1);
+    for (int i = 0; i < T_DIR; i += 1)
+        cor->buf = add_char_buf(cor->buf, octet_size(n, T_DIR - 1 - i), 1);
     return (cor);
 }

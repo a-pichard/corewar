@@ -51,3 +51,24 @@ int *destroy_array_t(char **tab, int *ret)
     free(tab);
     return (ret);
 }
+
+int *my_realloc(int *str, char *src, int fr)
+{
+    int i;
+    int j;
+    int k;
+    int m;
+    int *dest;
+
+    for (i = 0; str != NULL && str[i] != -1; i += 1);
+    for (j = 0; src[j] != '\0'; j += 1);
+    dest = malloc(sizeof(int) * (i + j + 1));
+    (dest == NULL)?exit(84):0;
+    for (k = 0; k < i; k += 1)
+        dest[k] = str[k];
+    for (m = 0; k + m < i + j; m += 1)
+        dest[k + m] = src[m];
+    dest[k + m] = -1;
+    (fr) ? free(str) : 0;
+    return (dest);
+}
