@@ -8,7 +8,19 @@
 SRC	=	src/main.c	\
 		src/helper.c	\
 		src/utils/my_strlen.c	\
-		src/utils/puts.c
+		src/utils/puts.c	\
+		src/utils/xmalloc.c	\
+		src/utils/lit_to_big_endian.c	\
+		src/utils/my_strcmp.c	\
+		src/utils/is_nb_pos.c	\
+		src/utils/my_atoi.c	\
+		src/utils/my_strdup.c	\
+		src/utils/tab_utils.c	\
+		src/get_file/get_prg.c	\
+		src/get_file/get_prgs.c	\
+		src/get_file/get_dump.c	\
+		src/get_file/get_input.c	\
+		src/get_file/destroy_structs.c
 
 OBJ	=	$(SRC:.c=.o)
 
