@@ -39,15 +39,15 @@ static unsigned char *get_code(int fd, int size)
     return (prg);
 }
 
-file_t *get_prg(char *path, int nb, int adrr)
+prg_t *get_prg(char *path, int nb, int adrr)
 {
     int fd;
-    file_t *file;
+    prg_t *file;
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
         return (NULL);
-    file = xmalloc(sizeof(file_t));
+    file = xmalloc(sizeof(prg_t));
     file->hd = get_header(fd);
     file->prg = get_code(fd, file->hd->prog_size);
     close(fd);

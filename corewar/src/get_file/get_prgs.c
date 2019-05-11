@@ -40,7 +40,7 @@ static void init_struct(champs_t *prgs, int ac, char **av)
     int i = 0;
 
     prgs->nb_prg = get_nb_champ(ac, av);
-    prgs->prgs = xmalloc(sizeof(file_t *) * (prgs->nb_prg + 1));
+    prgs->prgs = xmalloc(sizeof(prg_t *) * (prgs->nb_prg + 1));
     while (i < prgs->nb_prg + 1) {
         prgs->prgs[i] = NULL;
         i++;

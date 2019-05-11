@@ -23,18 +23,18 @@ typedef struct {
     int addr;
     header_t *hd;
     unsigned char *prg;
-} file_t;
+} prg_t;
 
 typedef struct {
     int dump;
     int nb_prg;
-    file_t **prgs;
+    prg_t **prgs;
 } champs_t;
 
 void helper(char *bin_name, int exit_status);
 
 champs_t *get_prgs(int ac, char **av);
-file_t *get_prg(char *path, int nb, int adrr);
+prg_t *get_prg(char *path, int nb, int adrr);
 void get_input(champs_t *prgs, int ac, char **av);
 int get_dump(int ac, char **av);
 void destroy_struct(champs_t *prgs);
