@@ -12,23 +12,23 @@
 # define COMMENT_LENGTH 2048
 
 typedef struct {
-   int  magic;
-   char prog_name[PROG_NAME_LENGTH + 1];
-   int  prog_size;
-   char comment[COMMENT_LENGTH + 1];
+    int  magic;
+    char prog_name[PROG_NAME_LENGTH + 1];
+    int  prog_size;
+    char comment[COMMENT_LENGTH + 1];
 } header_t;
 
 typedef struct {
-   int nb;
-   int addr;
-   header_t *hd;
-   unsigned char *prg;
+    int nb;
+    int addr;
+    header_t *hd;
+    unsigned char *prg;
 } file_t;
 
 typedef struct {
-   int dump;
-   int nb_prg;
-   file_t **prgs;
+    int dump;
+    int nb_prg;
+    file_t **prgs;
 } champs_t;
 
 void helper(char *bin_name, int exit_status);
