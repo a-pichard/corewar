@@ -6,6 +6,7 @@
 */
 
 #include "corewar.h"
+#include "op.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -57,6 +58,11 @@ champs_t *get_prgs(int ac, char **av)
 {
     champs_t *prgs = xmalloc(sizeof(champs_t));
 
+    if (ac == 2 && !my_strcmp(av[1], "-h")) {
+        free(prgs);
+        helper(av[0], 0);
+    }
+    prgs->memory = xmalloc(sizeof(mem_t) * MEM_SIZE + 1);
     init_struct(prgs, ac, av);
     get_input(prgs, ac, av);
     return (prgs);

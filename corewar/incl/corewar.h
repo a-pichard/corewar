@@ -8,13 +8,15 @@
 #ifndef COREWAR_H_
 #define COREWAR
 
-# define PROG_NAME_LENGTH 128
-# define COMMENT_LENGTH 2048
+#define PROG_NAME_LENGTH 128
+#define COMMENT_LENGTH 2048
+
+typedef unsigned char mem_t;
 
 typedef struct {
-    int  magic;
+    int magic;
     char prog_name[PROG_NAME_LENGTH + 1];
-    int  prog_size;
+    int prog_size;
     char comment[COMMENT_LENGTH + 1];
 } header_t;
 
@@ -28,6 +30,7 @@ typedef struct {
 typedef struct {
     int dump;
     int nb_prg;
+    mem_t *memory;
     prg_t **prgs;
 } champs_t;
 
@@ -39,6 +42,7 @@ void get_input(champs_t *prgs, int ac, char **av);
 int get_dump(int ac, char **av);
 void destroy_struct(champs_t *prgs);
 int is_contain_cor(char *str);
+champs_t *set_nb_prog(champs_t *champ);
 
 int my_strlen(char const *str);
 void my_putchar(char c);

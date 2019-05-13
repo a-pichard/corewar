@@ -6,6 +6,7 @@
 */
 
 #include "corewar.h"
+#include "op.h"
 #include <stdlib.h>
 
 static int get_new_ac(int ac, char **av)
@@ -46,11 +47,11 @@ static int fill_arg(int *nb, int *addr, char **av, int *i)
         if (!is_nb_pos(av[(*i) + 1]))
             return (1);
         if (!my_strcmp(av[*i], "-n") && *nb == -1)
-            *nb = my_atoi(av[(*i) + 1]);
+            ((*nb = my_atoi(av[(*i) + 1])) < 0) ? exit(84) : 0;
         else if (!my_strcmp(av[*i], "-n"))
             return (1);
         if (!my_strcmp(av[*i], "-a") && *addr == -1)
-            *addr = my_atoi(av[(*i) + 1]);
+            ((*addr = my_atoi(av[(*i) + 1]) % MEM_SIZE) < 0) ? exit(84) : 0;
         else if (!my_strcmp(av[*i], "-a"))
             return (1);
         (*i) = (*i) + 2;
@@ -61,7 +62,7 @@ static int fill_arg(int *nb, int *addr, char **av, int *i)
 static int fill_data(champs_t *prgs, int ac, char **av, int *i)
 {
     int j = 0;
-    int nb  = -1;
+    int nb = -1;
     int addr = -1;
 
     if (fill_arg(&nb, &addr, av, i))
@@ -92,7 +93,7 @@ void get_input(champs_t *prgs, int ac, char **av)
         if (fill_data(prgs, ac, av, &i)) {
             destroy_tab(av);
             destroy_struct(prgs);
-            exit (84);
+            exit(84);
         }
     }
     destroy_tab(av);

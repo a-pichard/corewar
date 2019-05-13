@@ -52,8 +52,7 @@ prg_t *get_prg(char *path, int nb, int adrr)
     file->prg = get_code(fd, file->hd->prog_size);
     close(fd);
     if (file->hd == NULL || file->prg == NULL) {
-        if (file->hd != NULL)
-            free(file->hd);
+        (file->hd != NULL) ? free(file->hd) : 0;
         if (file->prg != NULL)
             free(file->prg);
         free(file);

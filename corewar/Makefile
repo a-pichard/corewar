@@ -8,6 +8,7 @@
 SRC	=	src/main.c	\
 		src/helper.c	\
 		src/utils/my_strlen.c	\
+		src/set_nb.c	\
 		src/utils/puts.c	\
 		src/utils/xmalloc.c	\
 		src/utils/lit_to_big_endian.c	\
@@ -29,6 +30,11 @@ CFLAGS	=	-Iincl -W -Wall -Wextra
 NAME	=	corewar
 
 all:	$(NAME)
+
+val:	debug $(NAME)
+
+debug:
+	$(eval CFLAGS	+=	-g)
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) $(CFLAGS)

@@ -26,7 +26,7 @@ static int get_nb_dash_dump(int ac, char **av, int *index)
 int get_dump(int ac, char **av)
 {
     int index;
-    int nb_dump =  get_nb_dash_dump(ac, av, &index);
+    int nb_dump = get_nb_dash_dump(ac, av, &index);
     char *dump = NULL;
 
     if (nb_dump == 0)
