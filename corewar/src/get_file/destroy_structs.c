@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void destroy_struct(champs_t *prgs)
+void destroy_struct(corewar_t *prgs)
 {
     int i = 0;
 

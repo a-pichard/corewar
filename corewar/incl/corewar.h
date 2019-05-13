@@ -8,6 +8,8 @@
 #ifndef COREWAR_H_
 #define COREWAR
 
+#include "op.h"
+
 #define PROG_NAME_LENGTH 128
 #define COMMENT_LENGTH 2048
 
@@ -25,24 +27,24 @@ typedef struct {
     int addr;
     header_t *hd;
     unsigned char *prg;
-} prg_t;
+} champ_t;
 
 typedef struct {
     int dump;
     int nb_prg;
-    mem_t *memory;
-    prg_t **prgs;
-} champs_t;
+    mem_t memory[MEM_SIZE + 1];
+    champ_t **prgs;
+} corewar_t;
 
 void helper(char *bin_name, int exit_status);
 
-champs_t *get_prgs(int ac, char **av);
-prg_t *get_prg(char *path, int nb, int adrr);
-void get_input(champs_t *prgs, int ac, char **av);
+corewar_t *get_prgs(int ac, char **av);
+champ_t *get_prg(char *path, int nb, int adrr);
+void get_input(corewar_t *prgs, int ac, char **av);
 int get_dump(int ac, char **av);
-void destroy_struct(champs_t *prgs);
+void destroy_struct(corewar_t *prgs);
 int is_contain_cor(char *str);
-champs_t *set_nb_prog(champs_t *champ);
+corewar_t *set_nb_prog(corewar_t *champ);
 
 int my_strlen(char const *str);
 void my_putchar(char c);

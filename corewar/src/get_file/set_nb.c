@@ -8,7 +8,7 @@
 #include "corewar.h"
 #include <stddef.h>
 
-int choose_nb(champs_t *champ)
+int choose_nb(corewar_t *champ)
 {
     int finish = 0;
     int n = -1;
@@ -22,7 +22,7 @@ int choose_nb(champs_t *champ)
     return (n);
 }
 
-champs_t *set_nb_prog(champs_t *champ)
+corewar_t *set_nb_prog(corewar_t *champ)
 {
     for (int i = 0; champ->prgs[i] != NULL; i += 1) {
         if (champ->prgs[i]->nb == -1)

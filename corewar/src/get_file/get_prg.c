@@ -31,7 +31,7 @@ static unsigned char *get_code(int fd, int size)
     int ret;
     unsigned char *prg = xmalloc(sizeof(unsigned char) * (size + 1));
 
-    ret = read(fd, prg, size);
+    ret = read(fd, prg, size + 1);
     if (ret != size) {
         free(prg);
         return (NULL);
@@ -39,15 +39,15 @@ static unsigned char *get_code(int fd, int size)
     return (prg);
 }
 
-prg_t *get_prg(char *path, int nb, int adrr)
+champ_t *get_prg(char *path, int nb, int adrr)
 {
     int fd;
-    prg_t *file;
+    champ_t *file;
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
         return (NULL);
-    file = xmalloc(sizeof(prg_t));
+    file = xmalloc(sizeof(champ_t));
     file->hd = get_header(fd);
     file->prg = get_code(fd, file->hd->prog_size);
     close(fd);

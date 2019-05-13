@@ -59,7 +59,7 @@ static int fill_arg(int *nb, int *addr, char **av, int *i)
     return (0);
 }
 
-static int fill_data(champs_t *prgs, int ac, char **av, int *i)
+static int fill_data(corewar_t *prgs, int ac, char **av, int *i)
 {
     int j = 0;
     int nb = -1;
@@ -83,7 +83,7 @@ static int fill_data(champs_t *prgs, int ac, char **av, int *i)
     return (0);
 }
 
-void get_input(champs_t *prgs, int ac, char **av)
+void get_input(corewar_t *prgs, int ac, char **av)
 {
     int i = 0;
 

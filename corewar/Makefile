@@ -8,7 +8,6 @@
 SRC	=	src/main.c	\
 		src/helper.c	\
 		src/utils/my_strlen.c	\
-		src/set_nb.c	\
 		src/utils/puts.c	\
 		src/utils/xmalloc.c	\
 		src/utils/lit_to_big_endian.c	\
@@ -22,6 +21,7 @@ SRC	=	src/main.c	\
 		src/get_file/get_dump.c	\
 		src/get_file/get_input.c	\
 		src/get_file/destroy_structs.c \
+		src/get_file/set_nb.c	\
 		src/mnemonic/add.c \
 		src/mnemonic/aff.c \
 		src/mnemonic/and.c \

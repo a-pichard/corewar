@@ -36,12 +36,12 @@ static int get_nb_champ(int ac, char **av)
     return (count);
 }
 
-static void init_struct(champs_t *prgs, int ac, char **av)
+static void init_struct(corewar_t *prgs, int ac, char **av)
 {
     int i = 0;
 
     prgs->nb_prg = get_nb_champ(ac, av);
-    prgs->prgs = xmalloc(sizeof(prg_t *) * (prgs->nb_prg + 1));
+    prgs->prgs = xmalloc(sizeof(champ_t *) * (prgs->nb_prg + 1));
     while (i < prgs->nb_prg + 1) {
         prgs->prgs[i] = NULL;
         i++;
@@ -54,16 +54,37 @@ static void init_struct(champs_t *prgs, int ac, char **av)
     }
 }
 
-champs_t *get_prgs(int ac, char **av)
+static int same_nb_prog(corewar_t *champ)
 {
-    champs_t *prgs = xmalloc(sizeof(champs_t));
+    int mem;
+    int br = 0;
+
+    for (int j = 0; champ->prgs[j + 1] != NULL; j += 1) {
+        if (champ->prgs[j]->hd->magic != COREWAR_EXEC_MAGIC)
+            return (1);
+        mem = champ->prgs[j]->nb;
+        for (int i = j + 1; !br && champ->prgs[i] != NULL; i += 1)
+            (mem != -1 && mem == champ->prgs[i]->nb) ? br = 1 : 0;
+        if (br)
+            return (1);
+    }
+    return (0);
+}
+
+corewar_t *get_prgs(int ac, char **av)
+{
+    corewar_t *prgs = xmalloc(sizeof(corewar_t));
 
     if (ac == 2 && !my_strcmp(av[1], "-h")) {
         free(prgs);
         helper(av[0], 0);
     }
-    prgs->memory = xmalloc(sizeof(mem_t) * MEM_SIZE + 1);
     init_struct(prgs, ac, av);
     get_input(prgs, ac, av);
+    if (prgs->nb_prg <= 1 || same_nb_prog(prgs)) {
+        destroy_struct(prgs);
+        return (NULL);
+    }
+    prgs = set_nb_prog(prgs);
     return (prgs);
 }
