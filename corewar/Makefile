@@ -21,7 +21,23 @@ SRC	=	src/main.c	\
 		src/get_file/get_prgs.c	\
 		src/get_file/get_dump.c	\
 		src/get_file/get_input.c	\
-		src/get_file/destroy_structs.c
+		src/get_file/destroy_structs.c \
+		src/mnemonic/add.c \
+		src/mnemonic/aff.c \
+		src/mnemonic/and.c \
+		src/mnemonic/fork.c \
+		src/mnemonic/ld.c \
+		src/mnemonic/ldi.c \
+		src/mnemonic/lfork.c \
+		src/mnemonic/live.c \
+		src/mnemonic/lld.c \
+		src/mnemonic/lldi.c \
+		src/mnemonic/or.c \
+		src/mnemonic/st.c \
+		src/mnemonic/sti.c \
+		src/mnemonic/sub.c \
+		src/mnemonic/xor.c \
+		src/mnemonic/zjmp.c \
 
 OBJ	=	$(SRC:.c=.o)
 
