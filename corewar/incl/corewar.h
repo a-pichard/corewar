@@ -25,6 +25,7 @@ typedef struct {
 typedef struct {
     int nb;
     int addr;
+    int p_addr;
     header_t *hd;
     unsigned char *prg;
 } champ_t;
@@ -45,6 +46,7 @@ int get_dump(int ac, char **av);
 void destroy_struct(corewar_t *prgs);
 int is_contain_cor(char *str);
 corewar_t *set_nb_prog(corewar_t *champ);
+corewar_t *set_addr(corewar_t *prgs);
 
 int my_strlen(char const *str);
 void my_putchar(char c);

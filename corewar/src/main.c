@@ -20,6 +20,12 @@ void print_prg(corewar_t *cor)
         }
         printf("\n");
     }
+    for (int i = 0; i < MEM_SIZE; i += 1) {
+        printf("%d|", cor->memory[i]);
+        if (i % (1024 / 8) == 0 && i)
+            printf("\n");
+    }
+    printf("\n");
 }
 
 int main(int ac, char **av)
@@ -28,7 +34,7 @@ int main(int ac, char **av)
 
     if (cor == NULL)
         return (84);
-    //print_prg(cor);
+    print_prg(cor);
     destroy_struct(cor);
     return (0);
 }

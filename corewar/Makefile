@@ -15,6 +15,7 @@ SRC	=	src/main.c	\
 		src/utils/is_nb_pos.c	\
 		src/utils/my_atoi.c	\
 		src/utils/my_strdup.c	\
+		src/get_file/set_addr.c	\
 		src/utils/tab_utils.c	\
 		src/get_file/get_prg.c	\
 		src/get_file/get_prgs.c	\

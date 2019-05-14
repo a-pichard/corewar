@@ -53,12 +53,12 @@ champ_t *get_prg(char *path, int nb, int adrr)
     close(fd);
     if (file->hd == NULL || file->prg == NULL) {
         (file->hd != NULL) ? free(file->hd) : 0;
-        if (file->prg != NULL)
-            free(file->prg);
+        (file->prg != NULL) ? free(file->prg) : 0;
         free(file);
         return (NULL);
     }
     file->nb = nb;
     file->addr = adrr;
+    file->p_addr = 0;
     return (file);
 }

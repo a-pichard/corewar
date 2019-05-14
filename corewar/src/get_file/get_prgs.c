@@ -81,10 +81,13 @@ corewar_t *get_prgs(int ac, char **av)
     }
     init_struct(prgs, ac, av);
     get_input(prgs, ac, av);
-    if (prgs->nb_prg <= 1 || same_nb_prog(prgs)) {
+    if (prgs->nb_prg <= 1 || prgs->nb_prg > 4 || same_nb_prog(prgs)) {
         destroy_struct(prgs);
         return (NULL);
     }
+    for (int i = 0; i <= MEM_SIZE; i += 1)
+        prgs->memory[i] = '\0';
     prgs = set_nb_prog(prgs);
+    prgs = set_addr(prgs);
     return (prgs);
 }
