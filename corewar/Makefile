@@ -37,8 +37,15 @@ SRC	=	src/main.c	\
 		src/mnemonic/st.c \
 		src/mnemonic/sti.c \
 		src/mnemonic/sub.c \
-		src/mnemonic/xor.c \
-		src/mnemonic/zjmp.c \
+		src/utils/vec/apply.c	\
+		src/utils/vec/create.c   \
+		src/utils/vec/destroy.c	\
+		src/utils/vec/get.c	\
+		src/utils/vec/pop.c	\
+		src/utils/vec/push.c	\
+		src/utils/vec/set.c	\
+		src/mnemonic/xor.c	\
+		src/mnemonic/zjmp.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -48,7 +55,7 @@ NAME	=	corewar
 
 all:	$(NAME)
 
-val:	debug $(NAME)
+val:	fclean debug $(NAME)
 
 debug:
 	$(eval CFLAGS	+=	-g)

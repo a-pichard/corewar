@@ -36,7 +36,7 @@ corewar_t *place_addr(corewar_t *prgs, int n)
     return (prgs);
 }
 
-int choose_addr(corewar_t *prgs, int n, int rest)
+int choose_addr(corewar_t *prgs, int rest)
 {
     int size = 0;
     int addr = 0;
@@ -69,7 +69,7 @@ corewar_t *set_addr(corewar_t *prgs)
             (prgs->prgs[i]->addr != -1 && !prgs->prgs[i]->p_addr) ?
             prgs = place_addr(prgs, i) : 0;
         if (prgs->prgs[n]->addr == -1)
-            prgs->prgs[n]->addr = choose_addr(prgs, n, finish);
+            prgs->prgs[n]->addr = choose_addr(prgs, finish);
         n += 1;
     }
     for (int i = 0; prgs->prgs[i] != NULL; i += 1)
