@@ -82,9 +82,10 @@ char **parser_file(char **file, char *fn)
     name_file(file, &buf, &i);
     buf = comment_file(file, buf, &i);
     check_label(file, i);
-    if (file[i] != NULL)
+    if (file[i] != NULL) {
         cor = prog(file, i, buf);
-    write_file(fn, cor->buf);
-    free(cor);
+        write_file(fn, cor->buf);
+        free(cor);
+    }
     return (file);
 }
