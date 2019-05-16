@@ -9,7 +9,7 @@
 #include "op.h"
 #include "vec.h"
 
-void live(corewar_t *cor, vec_t *proc)
+void live(corewar_t *cor, process_t *proc)
 {
 
 }

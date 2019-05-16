@@ -1,4 +1,4 @@
-/*
+ /*
 ** EPITECH PROJECT, 2019
 ** aff
 ** File description:
@@ -9,7 +9,7 @@
 #include "op.h"
 #include "vec.h"
 
-void aff(corewar_t *cor, vec_t *proc)
+void aff(corewar_t *cor, process_t *proc)
 {
 
 }

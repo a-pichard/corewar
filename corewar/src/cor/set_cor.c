@@ -20,7 +20,7 @@ int index_of_int(mem_t mem, int *ins)
 void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
 {
     int *ins[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, NULL};
-    int (*function[])(corewar_t *cor, vec_t *proc) = FUNCTION_INS;
+    int (*function[])(corewar_t *cor, process_t *proc) = FUNCTION_INS;
     int n;
 
     for (int i = 0; cor->prgs[i] != NULL; i += 1) {
@@ -36,7 +36,7 @@ void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
                 (((process_t *)proc->content[i])->pc + 1) % MEM_SIZE;
             continue;
         }
-        (function[n])(cor, proc);
+        (function[n])(cor, (process_t *)proc->content[i]);
     }
 }
 
