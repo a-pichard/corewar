@@ -7,8 +7,9 @@
 
 #include "corewar.h"
 #include "op.h"
+#include "vec.h"
 
-void xor(void)
+void xor(corewar_t *cor, vec_t *proc)
 {
 
 }

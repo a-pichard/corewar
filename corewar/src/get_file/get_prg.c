@@ -60,5 +60,6 @@ champ_t *get_prg(char *path, int nb, int adrr)
     file->nb = nb;
     file->addr = adrr;
     file->p_addr = 0;
+    file->live = 0;
     return (file);
 }
