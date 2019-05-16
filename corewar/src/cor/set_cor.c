@@ -7,20 +7,12 @@
 
 #include "corewar.h"
 #include "vec.h"
-
-int index_of_int(mem_t mem, int *ins)
-{
-    for (int i = 0; ins[i] != NULL; i += 1) {
-        if (ins[i] == mem)
-            return (i);
-    }
-    return (-1);
-}
+#include <stdio.h>
 
 void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
 {
-    int *ins[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, NULL};
-    int (*function[])(corewar_t *cor, process_t *proc) = FUNCTION_INS;
+    int ins[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, -1};
+    void (*function[])(corewar_t *cor, process_t *proc) = FUNCTION_INS;
     int n;
 
     for (int i = 0; cor->prgs[i] != NULL; i += 1) {
@@ -29,7 +21,7 @@ void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
             return;
         }
     }
-    for (int i = 0; i < proc->element; i += 1) {
+    for (int i = 0; i < (int) proc->element; i += 1) {
         n = index_of_int(cor->memory[((process_t *)proc->content[i])->pc], ins);
         if (n == -1) {
             ((process_t *)proc->content[i])->pc =
@@ -51,7 +43,7 @@ void my_vm(corewar_t *cor, vec_t *proc)
         }
         for (int i = 0; cor->prgs[i] != NULL; i += 1)
             cor->prgs[i]->live = 0;
-        for (int i = 0; i < proc->element; i += 1)
+        for (int i = 0; i < (int) proc->element; i += 1)
             ((process_t *)proc->content[i])->sleep = 0;
     }
 }
@@ -70,6 +62,8 @@ int set_cor(corewar_t *cor)
         proc->reg[0] = cor->prgs[i]->index;
         push(process, proc);
     }
-    my_vm(cor, process);
+    for (int i = 0; i < cor->nb_prg - 1; i += 1)
+        process = sort_process(process, cor);
+    //my_vm(cor, process);
     return (0);
 }

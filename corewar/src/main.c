@@ -35,6 +35,7 @@ int main(int ac, char **av)
     if (cor == NULL)
         return (84);
     print_prg(cor);
+    set_cor(cor);
     destroy_struct(cor);
     return (0);
 }

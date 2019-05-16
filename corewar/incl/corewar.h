@@ -72,6 +72,10 @@ char *my_strdup(char *str);
 void destroy_tab(char **tab);
 int get_tab_len(char **tab);
 
+int set_cor(corewar_t *cor);
+vec_t *sort_process(vec_t *proc, corewar_t *cor);
+int index_of_int(mem_t mem, int *ins);
+
 void live(corewar_t *cor, process_t *proc);
 void ld(corewar_t *cor, process_t *proc);
 void st(corewar_t *cor, process_t *proc);
