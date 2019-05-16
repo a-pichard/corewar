@@ -47,7 +47,7 @@ static int fill_arg(int *nb, int *addr, char **av, int *i)
         if (!is_nb_pos(av[(*i) + 1]))
             return (1);
         if (!my_strcmp(av[*i], "-n") && *nb == -1)
-            ((*nb = my_atoi(av[(*i) + 1])) < 0) ? exit(84) : 0;
+            ((*nb = my_atoi(av[(*i) + 1])) < 0 || *nb > 4) ? exit(84) : 0;
         else if (!my_strcmp(av[*i], "-n"))
             return (1);
         if (!my_strcmp(av[*i], "-a") && *addr == -1)
@@ -77,7 +77,6 @@ static int fill_data(corewar_t *prgs, int ac, char **av, int *i)
         return (1);
     for (j = 0; prgs->prgs[j] != NULL; j++);
     prgs->prgs[j] = get_prg(av[*i], nb, addr);
-    prgs->prgs[j]->index = j + 1;
     (*i)++;
     if (prgs->prgs[j] == NULL)
         return (1);

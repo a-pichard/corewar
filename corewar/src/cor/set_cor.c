@@ -36,10 +36,12 @@ void my_vm(corewar_t *cor, vec_t *proc)
 {
     int cycle_d;
     int cycle;
+    int dump = 0;
 
     for (cycle_d = CYCLE_TO_DIE; cycle_d > 0; cycle -= CYCLE_DELTA) {
         for (cycle = 0; cycle < cycle_d; cycle += 1) {
             check_ins(&cycle, cor, proc);
+            dump += 1;
         }
         for (int i = 0; cor->prgs[i] != NULL; i += 1)
             cor->prgs[i]->live = 0;
@@ -59,7 +61,7 @@ int set_cor(corewar_t *cor)
         proc->sleep = 0;
         for (int i = 0; i < REG_NUMBER; i += 1)
             proc->reg[i] = 0;
-        proc->reg[0] = cor->prgs[i]->index;
+        proc->reg[0] = cor->prgs[i]->nb;
         push(process, proc);
     }
     for (int i = 0; i < cor->nb_prg - 1; i += 1)

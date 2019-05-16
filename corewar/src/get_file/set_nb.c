@@ -11,7 +11,7 @@
 int choose_nb(corewar_t *champ)
 {
     int finish = 0;
-    int n = -1;
+    int n = 0;
 
     while (!finish) {
         n += 1;

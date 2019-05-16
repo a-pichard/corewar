@@ -26,7 +26,6 @@ typedef struct {
 } header_t;
 
 typedef struct {
-    int index;
     int live;
     int nb;
     int addr;
