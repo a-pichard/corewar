@@ -33,7 +33,6 @@ int main(int ac, char **av)
     process_t *proc;
     corewar_t *cor = get_prgs(ac, av);
 
-    test_live(cor, proc);
     if (cor == NULL)
         return (84);
     print_prg(cor);
