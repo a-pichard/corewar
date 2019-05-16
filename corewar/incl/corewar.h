@@ -30,6 +30,7 @@ typedef struct {
     int nb;
     int addr;
     int p_addr;
+    int carry;
     header_t *hd;
     unsigned char *prg;
 } champ_t;
@@ -57,11 +58,6 @@ void destroy_struct(corewar_t *prgs);
 int is_contain_cor(char *str);
 corewar_t *set_nb_prog(corewar_t *champ);
 corewar_t *set_addr(corewar_t *prgs);
-
-
-
-void test_live(corewar_t *cor, process_t *proc);
-
 
 int my_strlen(char const *str);
 void my_putchar(char c);

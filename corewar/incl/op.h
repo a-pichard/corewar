@@ -24,6 +24,8 @@
 
 #define REG_NUMBER 16
 
+# define REG_VALID(x) ((x) >= 0 && (x) < REG_NUMBER)
+
 typedef char args_type_t;
 
 #define T_REG 1
@@ -43,7 +45,7 @@ typedef struct op_s
 
 #define IND_SIZE 2
 #define DIR_SIZE 4
-#define REG_SIZE DIR_SIZE
+#define REG_SIZE 4
 
 //extern  op_t    op_tab[];
 
