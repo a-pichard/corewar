@@ -59,6 +59,11 @@ int is_contain_cor(char *str);
 corewar_t *set_nb_prog(corewar_t *champ);
 corewar_t *set_addr(corewar_t *prgs);
 
+
+
+void test_live(corewar_t *cor, process_t *proc);
+
+
 int my_strlen(char const *str);
 void my_putchar(char c);
 void my_putstr(char const *str);
@@ -71,6 +76,9 @@ int my_atoi(char const *str);
 char *my_strdup(char *str);
 void destroy_tab(char **tab);
 int get_tab_len(char **tab);
+int dec_to_bin(int nub);
+char *conv_i_str(int nbr);
+int power_bytes(int nbr, int expo);
 
 void live(corewar_t *cor, process_t *proc);
 void ld(corewar_t *cor, process_t *proc);

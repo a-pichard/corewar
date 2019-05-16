@@ -21,7 +21,7 @@ void print_prg(corewar_t *cor)
         printf("\n");
     }
     for (int i = 0; i < MEM_SIZE; i += 1) {
-        printf("%x|", cor->memory[i]);
+        printf("%d|", cor->memory[i]);
         if (i % (1024 / 8) == 0 && i)
             printf("\n");
     }
@@ -30,8 +30,10 @@ void print_prg(corewar_t *cor)
 
 int main(int ac, char **av)
 {
+    process_t *proc;
     corewar_t *cor = get_prgs(ac, av);
 
+    test_live(cor, proc);
     if (cor == NULL)
         return (84);
     print_prg(cor);
