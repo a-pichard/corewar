@@ -9,7 +9,7 @@
 #include "op.h"
 #include "vec.h"
 
-void sti(corewar_t *cor, process_t *proc)
+void sti(corewar_t *cor, vec_t *proc, int n)
 {
 
 }

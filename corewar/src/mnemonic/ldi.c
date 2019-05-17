@@ -9,7 +9,7 @@
 #include "op.h"
 #include "vec.h"
 
-void ldi(corewar_t *cor, process_t *proc)
+void ldi(corewar_t *cor, vec_t *proc, int n)
 {
 
 }

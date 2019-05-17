@@ -8,20 +8,21 @@
 #include "corewar.h"
 #include "op.h"
 #include "vec.h"
+#include <stdlib.h>
 
-void add(corewar_t *cor, process_t *proc)
+void add(corewar_t *cor, vec_t *proc, int n)
 {
-    int pc = proc->pc;
+    int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    char *type = conv_i_str(dec_to_in(cor->memory[(pc + 1) % MEM_SIZE]));
+    char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
     int temp = 0;
 
     if (type[0] - 48 == 0 && type[2] - 48 == 0 && type[4] - 48 == 0) {
         cor->memory[pc + 4] = cor->memory[pc + 2] + cor->memory[pc + 3];
-        proc->pc = (pc + 4) % MEM_SIZE;
+        ((process_t *)proc->content[n])->pc = (pc + 4) % MEM_SIZE;
     } else
         my_putstr("is not a register\n");
-    proc->sleep = op_tab[3].nbr_cycles;
+    ((process_t *)proc->content[n])->sleep = op_tab[3].nbr_cycles;
     //cor->prgs[0]->carry = 1;
     free(type);
 }
