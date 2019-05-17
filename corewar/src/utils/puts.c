@@ -29,3 +29,21 @@ void my_puterr(char const *str)
     write(2, str, my_strlen(str));
     exit(84);
 }
+
+void my_putnbr(int n)
+{
+    long k = n;
+    long i;
+
+    if (k < 0) {
+        my_putchar('-');
+        k = -k;
+    }
+    if (k > 9) {
+        my_putnbr(k / 10);
+        i = k % 10;
+        my_putchar(i + 48);
+    } else {
+        my_putchar(k + 48);
+    }
+}

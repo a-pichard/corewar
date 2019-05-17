@@ -68,6 +68,7 @@ int lit_to_big_endian(int x);
 int my_strcmp(char *s1, char *s2);
 int is_nb_pos(char *str);
 int my_atoi(char const *str);
+void my_putnbr(int n);
 char *my_strdup(char *str);
 void destroy_tab(char **tab);
 int get_tab_len(char **tab);
