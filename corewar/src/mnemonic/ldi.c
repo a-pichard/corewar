@@ -8,6 +8,7 @@
 #include "corewar.h"
 #include "op.h"
 #include "vec.h"
+#include <stdlib.h>
 
 void ldi(corewar_t *cor, vec_t *proc, int n)
 {
@@ -15,15 +16,28 @@ void ldi(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     int *args = get_args(cor->memory, pc, 4);
     char *type = conv_i_str(dec_to_bin(args[0]));
-    int i_chmp = ((process_t *) proc->content[n])->chmp;
     int add = 0;
+    int dest = 0;
 
-    if (type[0] - 48 == 1 && type[1] - 48 == 1 && type[2] - 48 == 1
-    && type[3] - 48 == 0 && type[4] - 48 == 0 && REG_VALID(args[3])) {
-
-        ((process_t *)proc->content[n])->pc = (pc + 5) % MEM_SIZE;
-    } else
+    ((process_t *)proc->content[n])->sleep = op_tab[9].nbr_cycles;
+    if ((type[2] == '1' && type[3] == '1') || type[4] != '0' ||
+        !REG_VALID(args[3]) || (type[0] == '0' && !REG_VALID(args[1])) ||
+        (type[2] == '0' && !REG_VALID(args[2]))) {
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-    cor->prgs[i_chmp]->carry = REG_VALID(args[3]) ?
-    (((process_t *)proc->content[n])->reg[args[3]] == 0) : 0;
+        return;
+    }
+    if (type[0] == '0')
+        args[1] = ((process_t *)proc->content[n])->reg[args[1] - 1];
+    if (type[2] == '0')
+        args[2] = ((process_t *)proc->content[n])->reg[args[2] - 1];
+    for (int i = 0; i < IND_SIZE; i += 1)
+        add += cor->memory[((pc + args[1] + i) % IDX_MOD) % MEM_SIZE] *
+            my_pow(256, IND_SIZE - 1 - i);
+    add += args[2];
+    for (int i = 0; i < REG_SIZE; i += 1)
+        dest += cor->memory[((pc + add + i) % IDX_MOD) % MEM_SIZE] *
+            my_pow(256, REG_SIZE - 1 - i);
+    ((process_t *)proc->content[n])->reg[args[3] - 1] = dest;
+    ((process_t *)proc->content[n])->pc = (pc + 6) % MEM_SIZE;
+    free(type);
 }
