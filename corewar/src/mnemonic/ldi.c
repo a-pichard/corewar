@@ -24,6 +24,6 @@ void ldi(corewar_t *cor, vec_t *proc, int n)
         ((process_t *)proc->content[n])->pc = (pc + 5) % MEM_SIZE;
     } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-    cor->prgs[i_chmp]->carry = REG_VALID(args[3]) ?
-    (((process_t *)proc->content[n])->reg[args[3]] == 0) : 0;
+    cor->prgs[i_chmp]->carry = REG_VALID(args[3]) ? \
+(((process_t *)proc->content[n])->reg[args[3]] == 0) : 0;
 }
