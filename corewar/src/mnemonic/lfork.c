@@ -14,7 +14,7 @@ void f_lfork(corewar_t *cor, vec_t *proc, int n)
     process_t *process;
     int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    int *args = get_args(cor->memory, pc, 1);
+    int *args = get_args(cor->memory, pc, 1, 1);
 
     process = xmalloc(sizeof(process_t));
     process->pc = (pc + args[0]) % MEM_SIZE;

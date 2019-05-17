@@ -14,7 +14,7 @@ void sti(corewar_t *cor, vec_t *proc, int n)
 {
     int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    int *args = get_args(cor->memory, pc, 3);
+    int *args = get_args(cor->memory, pc, 3, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
 
     ((process_t *)proc->content[n])->sleep = op_tab[10].nbr_cycles;

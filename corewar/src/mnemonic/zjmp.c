@@ -13,7 +13,7 @@ void zjmp(corewar_t *cor, vec_t *proc, int n)
 {
     int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    int *args = get_args(cor->memory, pc, 1);
+    int *args = get_args(cor->memory, pc, 1, 0);
     int i_chmp = ((process_t *)proc->content[n])->chmp;
 
     if (cor->prgs[i_chmp]->carry == 1)

@@ -14,7 +14,7 @@ void aff(corewar_t *cor, vec_t *proc, int n)
 {
     int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    int *args = get_args(cor->memory, pc, 2);
+    int *args = get_args(cor->memory, pc, 2, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
 
     if (type[0] - 48 == 0 && REG_VALID(args[1])) {
