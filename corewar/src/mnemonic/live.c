@@ -13,7 +13,7 @@ static void print_alive(int nb, char *prg_name)
 {
     my_putstr("The player ");
     my_putnbr(nb);
-    my_putstr(" (");
+    my_putstr("(");
     my_putstr(prg_name);
     my_putstr(") is alive.\n");
 }

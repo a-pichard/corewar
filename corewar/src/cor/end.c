@@ -44,7 +44,7 @@ void print_end(corewar_t *cor, int index)
 {
     my_putstr("The player ");
     my_putnbr(cor->prgs[index]->nb);
-    my_putstr(" (");
+    my_putstr("(");
     my_putstr(cor->prgs[index]->hd->prog_name);
     my_putstr(") has won.\n");
 }
