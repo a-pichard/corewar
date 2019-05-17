@@ -30,4 +30,5 @@ void sub(corewar_t *cor, vec_t *proc, int n)
     cor->prgs[i_chmp]->carry = (((process_t *) proc->content[n])->reg[args[3]]
     == 0);
     free(type);
+    free(args);
 }

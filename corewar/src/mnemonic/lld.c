@@ -25,4 +25,5 @@ void lld(corewar_t *cor, vec_t *proc, int n)
     ((process_t *)proc->content[n])->sleep = op_tab[1].nbr_cycles;
     cor->prgs[i_chmp]->carry = (args[2] == 0);
     free(type);
+    free(args);
 }
