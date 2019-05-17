@@ -8,6 +8,18 @@
 #include "corewar.h"
 #include "vec.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+int check_nbr_live(corewar_t *cor, int cycle)
+{
+    for (int i = 0; cor->prgs[i] != NULL; i += 1) {
+        if (cor->prgs[i]->live >= NBR_LIVE) {
+            cycle = CYCLE_TO_DIE;
+            return (cycle);
+        }
+    }
+    return (cycle);
+}
 
 void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
 {
@@ -15,13 +27,12 @@ void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
     void (*function[])(corewar_t *cor, vec_t *proc, int n) = FUNCTION_INS;
     int n;
 
-    for (int i = 0; cor->prgs[i] != NULL; i += 1) {
-        if (cor->prgs[i]->live >= NBR_LIVE) {
-            *cycle = CYCLE_TO_DIE;
-            return;
-        }
-    }
+    *cycle = check_nbr_live(cor, *cycle);
     for (int i = 0; i < (int) proc->element; i += 1) {
+        if (((process_t *)proc->content[i])->sleep > 0) {
+            ((process_t *)proc->content[i])->sleep -= 1;
+            continue;
+        }
         n = index_of_int(cor->memory[((process_t *)proc->content[i])->pc], ins);
         if (n == -1) {
             ((process_t *)proc->content[i])->pc =
@@ -40,9 +51,11 @@ void my_vm(corewar_t *cor, vec_t *proc)
 
     for (cycle_d = CYCLE_TO_DIE; cycle_d > 0; cycle -= CYCLE_DELTA) {
         for (cycle = 0; cycle < cycle_d; cycle += 1) {
+            (dump == cor->dump) ? end_dump(cor) : 0;
             check_ins(&cycle, cor, proc);
             dump += 1;
         }
+        is_end(cor);
         for (int i = 0; cor->prgs[i] != NULL; i += 1)
             cor->prgs[i]->live = 0;
         for (int i = 0; i < (int) proc->element; i += 1)
@@ -67,6 +80,6 @@ int set_cor(corewar_t *cor)
     }
     for (int i = 0; i < cor->nb_prg - 1; i += 1)
         process = sort_process(process, cor);
-    //my_vm(cor, process);
+    my_vm(cor, process);
     return (0);
 }
