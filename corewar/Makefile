@@ -52,7 +52,7 @@ SRC	=	src/main.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	=	-Iincl -W -Wall -Wextra
+CFLAGS	=	-Iincl ##-W -Wall -Wextra
 
 NAME	=	corewar
 

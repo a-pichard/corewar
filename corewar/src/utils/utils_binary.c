@@ -6,6 +6,7 @@
 */
 
 #include "corewar.h"
+#include <stdlib.h>
 
 int power_bytes(int nbr, int expo)
 {

@@ -43,6 +43,7 @@ typedef struct {
 } corewar_t;
 
 typedef struct {
+    int chmp;
     int pc;
     int sleep;
     mem_t reg[REG_NUMBER + 1];
@@ -80,20 +81,20 @@ int set_cor(corewar_t *cor);
 vec_t *sort_process(vec_t *proc, corewar_t *cor);
 int index_of_int(mem_t mem, int *ins);
 
-void live(corewar_t *cor, process_t *proc);
-void ld(corewar_t *cor, process_t *proc);
-void st(corewar_t *cor, process_t *proc);
-void add(corewar_t *cor, process_t *proc);
-void sub(corewar_t *cor, process_t *proc);
-void and(corewar_t *cor, process_t *proc);
-void or(corewar_t *cor, process_t *proc);
-void xor(corewar_t *cor, process_t *proc);
-void zjmp(corewar_t *cor, process_t *proc);
-void ldi(corewar_t *cor, process_t *proc);
-void sti(corewar_t *cor, process_t *proc);
-void f_fork(corewar_t *cor, process_t *proc);
-void lld(corewar_t *cor, process_t *proc);
-void lldi(corewar_t *cor, process_t *proc);
-void f_lfork(corewar_t *cor, process_t *proc);
-void aff(corewar_t *cor, process_t *proc);
+void live(corewar_t *cor, vec_t *proc, int n);
+void ld(corewar_t *cor, vec_t *proc, int n);
+void st(corewar_t *cor, vec_t *proc, int n);
+void add(corewar_t *cor, vec_t *proc, int n);
+void sub(corewar_t *cor, vec_t *proc, int n);
+void and(corewar_t *cor, vec_t *proc, int n);
+void or(corewar_t *cor, vec_t *proc, int n);
+void xor(corewar_t *cor, vec_t *proc, int n);
+void zjmp(corewar_t *cor, vec_t *proc, int n);
+void ldi(corewar_t *cor, vec_t *proc, int n);
+void sti(corewar_t *cor, vec_t *proc, int n);
+void f_fork(corewar_t *cor, vec_t *proc, int n);
+void lld(corewar_t *cor, vec_t *proc, int n);
+void lldi(corewar_t *cor, vec_t *proc, int n);
+void f_lfork(corewar_t *cor, vec_t *proc, int n);
+void aff(corewar_t *cor, vec_t *proc, int n);
 #endif

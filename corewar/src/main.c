@@ -30,7 +30,6 @@ void print_prg(corewar_t *cor)
 
 int main(int ac, char **av)
 {
-    process_t *proc;
     corewar_t *cor = get_prgs(ac, av);
 
     if (cor == NULL)

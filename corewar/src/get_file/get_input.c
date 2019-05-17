@@ -77,6 +77,7 @@ static int fill_data(corewar_t *prgs, int ac, char **av, int *i)
         return (1);
     for (j = 0; prgs->prgs[j] != NULL; j++);
     prgs->prgs[j] = get_prg(av[*i], nb, addr);
+    prgs->prgs[j]->carry = 0;
     (*i)++;
     if (prgs->prgs[j] == NULL)
         return (1);

@@ -8,18 +8,19 @@
 #include "corewar.h"
 #include "op.h"
 #include "vec.h"
+#include <stdlib.h>
 
-void st(corewar_t *cor, process_t *proc)
+void st(corewar_t *cor, vec_t *proc, int n)
 {
-    int pc = proc->pc;
+    int pc = ((process_t *)proc->content[n])->pc;
     op_t op_tab[] = {OP_TAB};
-    char *type = conv_i_str(dec_to_in(cor->memory[(pc + 1) % MEM_SIZE]));
+    char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
     int temp = 0;
 
     if (type[0] - 48 == 0) {
         temp = cor->memory[(pc + 2) % MEM_SIZE];
         cor->memory[(pc + 3) % MEM_SIZE] = temp;
-        proc->pc = (pc + 3) % MEM_SIZE;
+        ((process_t *)proc->content[n])->pc = (pc + 3) % MEM_SIZE;
     }
     //else
     // {
@@ -27,6 +28,6 @@ void st(corewar_t *cor, process_t *proc)
     //   addr = (unsigned int *) &(arena->MemoryMap[offset]);
     //   print_int((char *) addr, champ->Args[argv[0]]);
     // }
-    proc->sleep = op_tab[2].nbr_cycles;
+    ((process_t *)proc->content[n])->sleep = op_tab[2].nbr_cycles;
     free(type);
 }

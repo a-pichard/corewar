@@ -86,6 +86,7 @@ char **parser_file(char **file, char *fn)
         cor = prog(file, i, buf);
         write_file(fn, cor->buf);
         free(cor);
-    }
+    } else
+        write_file(fn, buf);
     return (file);
 }
