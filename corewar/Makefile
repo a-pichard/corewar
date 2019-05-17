@@ -43,6 +43,7 @@ SRC	=	src/main.c	\
 		src/utils/vec/destroy.c	\
 		src/cor/set_cor.c	\
 		src/cor/index.c	\
+		src/cor/end.c	\
 		src/utils/vec/get.c	\
 		src/utils/vec/pop.c	\
 		src/utils/vec/push.c	\

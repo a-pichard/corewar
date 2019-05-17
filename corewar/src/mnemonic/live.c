@@ -13,9 +13,9 @@ static void print_alive(int nb, char *prg_name)
 {
     my_putstr("The player ");
     my_putnbr(nb);
-    my_putchar('(');
+    my_putstr(" (");
     my_putstr(prg_name);
-    my_putstr(") is alive.");
+    my_putstr(") is alive.\n");
 }
 
 void live(corewar_t *cor, vec_t *proc, int n)
