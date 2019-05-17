@@ -20,13 +20,15 @@ int get_number_adress(mem_t *memory, int nbr_case, int *k, int pc)
     return (number);
 }
 
-int *get_parameter_args(mem_t *memory, int pc, int *args, int nbr_arg)
+int *get_parameter_args(mem_t *memory, int *utils, int *args, int special)
 {
     int i = 1;
     int j = 0;
     int k = 2;
     char type[2];
     char *types = conv_i_str(dec_to_bin(args[0]));
+    int pc = utils[0];
+    int nbr_arg = utils[1];
 
     for (i; i < nbr_arg; i++) {
         type[0] = types[j];
@@ -36,7 +38,8 @@ int *get_parameter_args(mem_t *memory, int pc, int *args, int nbr_arg)
         if (type[0] == '1' && type[1] == '1')
             args[i] = get_number_adresse(memory, 2, &k, pc);
         if (type[0] == '1' && type[1] == '0')
-            args[i] = get_number_adresse(memory, 4, &k, pc);
+            args[i] = (special == 1) ? get_number_adresse(memory, 2, &k, pc) :\
+            get_number_adresse(memory, 4, &k, pc);
         j += 2;
     }
     free(types);
@@ -51,11 +54,11 @@ int *get_args(mem_t *memory, int pc, int nbr_arg, int special)
     if (nbr_arg == 1) {
         if (special == 1) {
             args[0] = 11;
-            args = get_parameter_args(memory, pc, args, nbr_arg + 1);
+            args = get_parameter_args(memory, (int []) {pc, nbr_arg + 1}, args, special);
             args[0] = args[1];
         } else
             return (args);
     } else
-        args = get_parameter_args(memory, pc, args, nbr_arg);
+        args = get_parameter_args(memory, (int []) {pc, nbr_arg}, args, special);
     return (args);
 }
