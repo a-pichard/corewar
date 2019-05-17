@@ -15,6 +15,7 @@ SRC	=	src/main.c	\
 		src/utils/is_nb_pos.c	\
 		src/utils/my_atoi.c	\
 		src/utils/utils_binary.c \
+		src/utils/get_args.c \
 		src/utils/my_strdup.c	\
 		src/get_file/set_addr.c	\
 		src/utils/tab_utils.c	\
@@ -38,6 +39,8 @@ SRC	=	src/main.c	\
 		src/mnemonic/st.c \
 		src/mnemonic/sti.c \
 		src/mnemonic/sub.c \
+		src/mnemonic/xor.c	\
+		src/mnemonic/zjmp.c	\
 		src/utils/vec/apply.c	\
 		src/utils/vec/create.c   \
 		src/utils/vec/destroy.c	\
@@ -47,8 +50,6 @@ SRC	=	src/main.c	\
 		src/utils/vec/pop.c	\
 		src/utils/vec/push.c	\
 		src/utils/vec/set.c	\
-		src/mnemonic/xor.c	\
-		src/mnemonic/zjmp.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

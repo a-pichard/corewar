@@ -16,6 +16,7 @@ void add(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
     int temp = 0;
+    int i_chmp = ((process_t *)proc->content[n])->chmp;
 
     if (type[0] - 48 == 0 && type[2] - 48 == 0 && type[4] - 48 == 0) {
         cor->memory[pc + 4] = cor->memory[pc + 2] + cor->memory[pc + 3];
@@ -23,6 +24,6 @@ void add(corewar_t *cor, vec_t *proc, int n)
     } else
         my_putstr("is not a register\n");
     ((process_t *)proc->content[n])->sleep = op_tab[3].nbr_cycles;
-    //cor->prgs[0]->carry = 1;
+    cor->prgs[i_chmp]->carry = 1;
     free(type);
 }

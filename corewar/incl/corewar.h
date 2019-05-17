@@ -80,6 +80,7 @@ int power_bytes(int nbr, int expo);
 int set_cor(corewar_t *cor);
 vec_t *sort_process(vec_t *proc, corewar_t *cor);
 int index_of_int(mem_t mem, int *ins);
+int *get_args(mem_t *memory, int pc, int nbr_arg);
 
 void live(corewar_t *cor, vec_t *proc, int n);
 void ld(corewar_t *cor, vec_t *proc, int n);
