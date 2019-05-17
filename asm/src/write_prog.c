@@ -44,11 +44,12 @@ file_t *my_instruct(int i, file_t *cor, char *instruct, int m)
         cor->buf = pars_reg(instruct, cor->buf);
     if (t == T_DIR) {
         if (!m && (op_tab[i].code == 9 || op_tab[i].code == 10 ||
-                op_tab[i].code == 12))
+                op_tab[i].code == 12 || op_tab[i].code == 15))
             return (pars_dir(instruct, cor, 1));
-        if (m == 1 && (op_tab[i].code == 10 || op_tab[i].code == 11))
+        if (m == 1 && (op_tab[i].code == 10 || op_tab[i].code == 11 ||
+                op_tab[i].code == 14))
             return (pars_dir(instruct, cor, 1));
-        if (m == 2 && op_tab[i].code == 11)
+        if (m == 2 && (op_tab[i].code == 11 || op_tab[i].code == 14))
             return (pars_dir(instruct, cor, 1));
         cor = pars_dir(instruct, cor, 0);
     }
