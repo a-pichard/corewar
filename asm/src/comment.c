@@ -5,57 +5,81 @@
 ** get comment
 */
 
-#include "op.h"
 #include "asm.h"
+#include <stddef.h>
 #include <stdlib.h>
-#include <unistd.h>
 
-char **my_comment(char *str, int i, char **file, int k)
+static char first_char(char *str)
 {
-    char *dest = malloc(sizeof(char) * (my_strlen(str) + 2));
-    int j;
+    int i = 0;
 
-    for (j = 0; j < i; j += 1)
-        dest[j] = str[j];
-    while (j && dest[j - 1] == ' ')
-        j -= 1;
-    (str[my_strlen(str) - 1] == '\n') ? dest[j] = '\n' : 0;
-    (str[my_strlen(str) - 1] == '\n') ? j += 1 : 0;
-    for (int k = j; str[k - 1] != '\0'; k += 1)
-        dest[k] = '\0';
-    file[k] = dest;
-    free(dest);
-    return (file);
+    while (str[i] != '\0') {
+        if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+            return (str[i]);
+        i++;
+    }
+    return (0);
+}
+
+static int get_nb_lines(char **file)
+{
+    int i = 0;
+    int count = 0;
+
+    while (file[i] != NULL) {
+        if (first_char(file[i]) != '#')
+            count++;
+        i++;
+    }
+    return (count);
+}
+
+static int get_len(char *line)
+{
+    int i = 0;
+
+    while (line[i] != '\0' && line[i] != '#') {
+        i++;
+    }
+    return (i);
+}
+
+static char *dupstr(char *line)
+{
+    int i = 0;
+    int len = get_len(line);
+    char *newline = malloc(sizeof(char) * (len + 1));
+
+    if (newline == NULL)
+        my_puterr("malloc erorr.\n");
+    while (i < len) {
+        newline[i] = line[i];
+        i++;
+    }
+    newline[i] = '\0';
+    return (newline);
 }
 
 char **getcomment(char **file)
 {
-    int k;
+    int nb_lines = get_nb_lines(file);
+    char **newfile = malloc(sizeof(char *) * (nb_lines + 1));
+    int i = 0;
+    int j = 0;
 
-    for (k = 0; file[k] != NULL; k += 1);
-    for (int i = k - 1; i > -1; i -= 1) {
-        for (int j = 0; file[i][j]; j += 1)
-            (file[i][j] == COMMENT_CHAR) ?
-            file = my_comment(file[i], j, file, i) : 0;
+    if (newfile == NULL) {
+        my_puterr("malloc error.\n");
     }
-    return (file);
-}
-
-int empty_line(char *str)
-{
-    for (int i = 0; str[i]; i += 1) {
-        if (str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
-            return (0);
+    while (i < nb_lines) {
+        if (first_char(file[j]) != '#') {
+            newfile[i] = dupstr(file[j]);
+            i++;
+            j++;
+        } else {
+            j++;
+        }
     }
-    return (1);
-}
-
-char *get_quotes(char *str, int n)
-{
-    for (int i = 0; str[i]; i += 1)
-        str[i] = str[i + 1];
-    str[my_strlen(str) - 1] = '\0';
-    if (my_strlen(str) > n)
-        my_puterr("name or comment too long\n");
-    return (str);
+    newfile[i] = NULL;
+    destroy_tab(file);
+    return (newfile);
 }
