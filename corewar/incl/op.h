@@ -24,7 +24,7 @@
 
 #define REG_NUMBER 16
 
-# define REG_VALID(x) ((x) >= 0 && (x) < REG_NUMBER)
+# define REG_VALID(x) ((x) >= 0 && (x) < REG_NUMBER) ? 1 : 0
 
 typedef char args_type_t;
 

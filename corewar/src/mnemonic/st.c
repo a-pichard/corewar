@@ -18,17 +18,16 @@ void st(corewar_t *cor, vec_t *proc, int n)
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
     int temp = 0;
 
-    if (type[2] - 48 == 0) {
-        cor->memory[pc + args[1] % IDX_MOD] = ((process_t *) \
-        proc->content[n])->reg[2];
+    if (type[2] - 48 == 0 && REG_VALID(args[1])) {
+        cor->memory[pc + args[2] % IDX_MOD] = ((process_t *) \
+        proc->content[n])->reg[args[1]];
         ((process_t *)proc->content[n])->pc = (pc + 4) % MEM_SIZE;
-    }
-    else if (type[2] - 48 == 1 && type[3] - 48 == 1) {
-        ((process_t *) proc->content[n])->reg[7] = ((process_t *) \
-        proc->content[n])->reg[2];
+    } else if (type[2] - 48 == 1 && type[3] - 48 == 1 && REG_VALID(args[1])
+    && REG_VALID(args[2])) {
+        ((process_t *) proc->content[n])->reg[args[2]] = ((process_t *) \
+        proc->content[n])->reg[args[1]];
         ((process_t *)proc->content[n])->pc = (pc + 4) % MEM_SIZE;
-    }
-    else
+    } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
     ((process_t *)proc->content[n])->sleep = op_tab[2].nbr_cycles;
     free(type);

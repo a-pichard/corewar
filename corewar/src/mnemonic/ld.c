@@ -18,8 +18,8 @@ void ld(corewar_t *cor, vec_t *proc, int n)
     char *type = conv_i_str(dec_to_bin(arg[0]));
     int i_chmp = ((process_t *) proc->content[n])->chmp;
 
-    if (type[2] - 48 == 0) {
-        ((process_t *)proc->content[n])->reg[2] = pc + arg[2] % IDX_MOD;
+    if (type[2] - 48 == 0 && REG_VALID(arg[2])) {
+        ((process_t *)proc->content[n])->reg[arg[2]] = pc + arg[1] % IDX_MOD;
         ((process_t *)proc->content[n])->pc = (pc + 4) % MEM_SIZE;
     } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
