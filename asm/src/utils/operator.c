@@ -33,11 +33,11 @@ int instruction(char **str, int n, int i, op_t op_tab[])
             my_puterr("Invalid instruction\n");
         (mem == T_DIR) ? mem = DIR_SIZE : (mem == T_IND) ? mem = IND_SIZE : 0;
         (mem == DIR_SIZE && !m && (op_tab[i].code == 9 || op_tab[i].code == 10
-            || op_tab[i].code == 12)) ? mem = IND_SIZE : 0;
-        (mem == DIR_SIZE && m == 1 &&
-            (op_tab[i].code == 11 || op_tab[i].code == 10))?mem = IND_SIZE:0;
-        (mem == DIR_SIZE && m == 2 && op_tab[i].code == 11) ?
-            dest += 2 : (dest += mem);
+            || op_tab[i].code == 12 || op_tab[i].code == 15))?mem = IND_SIZE:0;
+        (mem == DIR_SIZE && m == 1 && (op_tab[i].code == 11 || op_tab[i].code ==
+            10 || op_tab[i].code == 14))?mem = IND_SIZE:0;
+        (mem == DIR_SIZE && m == 2 && (op_tab[i].code == 11 ||
+                op_tab[i].code == 14)) ? dest += 2 : (dest += mem);
     }
     return (destroy_array(str, dest));
 }

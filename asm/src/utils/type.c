@@ -39,12 +39,12 @@ int is_dir(char *str)
     if (*str != DIRECT_CHAR)
         return (0);
     str++;
+    if (*str == '\0')
+        return (0);
     if (*str == LABEL_CHAR) {
         str++;
-        while (*str && !br) {
+        for (;*str && !br; str++)
             (!char_instr(LABEL_CHARS, *str)) ? br = 1 : 0;
-            str++;
-        }
     } else {
         while (*str && !br) {
             (*str < '0' || *str > '9') ? br = 1 : 0;
