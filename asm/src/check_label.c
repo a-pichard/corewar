@@ -79,6 +79,8 @@ void check_label(char **file, int i)
     if (file[i] == NULL)
         return;
     labels = get_labels(file, i);
+    if (labels == NULL)
+        return;
     ret = extreme_checker_exe(labels);
     destroy_tab(labels);
     if (ret)
