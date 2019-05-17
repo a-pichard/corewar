@@ -59,10 +59,7 @@ NAME	=	corewar
 
 all:	$(NAME)
 
-val:	fclean debug $(NAME)
-
-debug:
-	$(eval CFLAGS	+=	-g)
+debug:	$(eval CFLAGS	+=	-g) re
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) $(CFLAGS)
