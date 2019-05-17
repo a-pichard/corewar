@@ -31,4 +31,5 @@ void st(corewar_t *cor, vec_t *proc, int n)
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
     ((process_t *)proc->content[n])->sleep = op_tab[2].nbr_cycles;
     free(type);
+    free(args);
 }
