@@ -11,5 +11,18 @@
 
 void f_lfork(corewar_t *cor, vec_t *proc, int n)
 {
+    process_t *process;
+    int pc = ((process_t *)proc->content[n])->pc;
+    op_t op_tab[] = {OP_TAB};
+    int *args = get_args(cor->memory, pc, 1);
 
+    process = xmalloc(sizeof(process_t));
+    process->pc = (pc + args[0]) % MEM_SIZE;
+    process->sleep = 0;
+    for (int i = 0; i < REG_NUMBER; i += 1)
+        process->reg[i] = 0;
+    process->chmp = ((process_t *)proc->content[n])->chmp;
+    push(proc, process);
+    ((process_t *)proc->content[n])->pc = (pc + 3) % MEM_SIZE;
+    ((process_t *)proc->content[n])->sleep = op_tab[14].nbr_cycles;
 }

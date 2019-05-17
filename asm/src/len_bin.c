@@ -30,6 +30,8 @@ int len_bin(char **file, int i, int end)
 {
     int dest = 0;
 
+    if (file[i] == NULL)
+        return (0);
     (file[i] != NULL && empty_line(file[i])) ? i += 1 : 0;
     while (file[i] != NULL && end != i) {
         while (file[i] != NULL && end != i && empty_line(file[i]))

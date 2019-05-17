@@ -48,6 +48,8 @@ char **my_str_to_word_tab(char *str)
     int j = 0;
     char **table;
 
+    if (str == NULL)
+        return (NULL);
     for (int i = 0; str[i] != '\0'; i += 1)
         (!i && !separator(str[i], NULL)) || (i && separator(str[i - 1], NULL) &&
         !separator(str[i], NULL)) ? j += 1 : 0;

@@ -16,3 +16,14 @@ int my_atoi(char const *str)
     }
     return (result);
 }
+
+int my_pow(int n, int p)
+{
+    int dest = n;
+
+    if (p == 0)
+        return (1);
+    for (int i = 1; i < p; i += 1)
+        dest = dest * n;
+    return (dest);
+}

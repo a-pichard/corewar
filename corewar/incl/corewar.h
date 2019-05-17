@@ -77,6 +77,7 @@ int get_tab_len(char **tab);
 int dec_to_bin(int nub);
 char *conv_i_str(int nbr);
 int power_bytes(int nbr, int expo);
+int my_pow(int n, int p);
 
 int set_cor(corewar_t *cor);
 vec_t *sort_process(vec_t *proc, corewar_t *cor);

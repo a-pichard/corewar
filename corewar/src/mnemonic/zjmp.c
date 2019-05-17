@@ -17,8 +17,10 @@ void zjmp(corewar_t *cor, vec_t *proc, int n)
     int i_chmp = ((process_t *)proc->content[n])->chmp;
 
     if (cor->prgs[i_chmp]->carry == 1)
-        ((process_t *)proc->content[n])->pc = (pc + args[0] % IDX_MOD) % MEM_SIZE;
+        ((process_t *)proc->content[n])->pc = \
+        (pc + args[0] % IDX_MOD) % MEM_SIZE;
     else
         ((process_t *)proc->content[n])->pc = (pc + 2) % MEM_SIZE;
     ((process_t *)proc->content[n])->sleep = op_tab[8].nbr_cycles;
+    free(args);
 }
