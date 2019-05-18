@@ -6,6 +6,7 @@
 */
 
 #include "corewar.h"
+#include "stdlib.h"
 
 int get_number_adress(mem_t *memory, int nbr_case, int *k, int pc)
 {
@@ -36,10 +37,10 @@ int *get_parameter_args(mem_t *memory, int *utils, int *args, int special)
         if (type[0] == '0' && type[1] == '1')
             args[i] = memory[(pc + k++) % MEM_SIZE];
         if (type[0] == '1' && type[1] == '1')
-            args[i] = get_number_adresse(memory, 2, &k, pc);
+            args[i] = get_number_adress(memory, 2, &k, pc);
         if (type[0] == '1' && type[1] == '0')
-            args[i] = (special == 1) ? get_number_adresse(memory, 2, &k, pc) :\
-            get_number_adresse(memory, 4, &k, pc);
+            args[i] = (special == 1) ? get_number_adress(memory, 2, &k, pc) :\
+            get_number_adress(memory, 4, &k, pc);
         j += 2;
     }
     free(types);

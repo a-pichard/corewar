@@ -82,6 +82,7 @@ int my_pow(int n, int p);
 int set_cor(corewar_t *cor);
 vec_t *sort_process(vec_t *proc, corewar_t *cor);
 int index_of_int(mem_t mem, int *ins);
+int get_number_adress(mem_t *memory, int nbr_case, int *k, int pc);
 int *get_args(mem_t *memory, int pc, int nbr_arg, int special);
 void is_end(corewar_t *cor);
 void end_dump(corewar_t *cor);
