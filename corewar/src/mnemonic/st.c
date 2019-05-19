@@ -29,10 +29,8 @@ void st(corewar_t *cor, vec_t *proc, int n)
         ((process_t *) proc->content[n])->reg[args[2] - 1] = ((process_t *) \
         proc->content[n])->reg[args[1] - 1];
         ((process_t *)proc->content[n])->pc = (pc + args[3]) % MEM_SIZE;
-    } else {
+    } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-        return;
-    }
     free(type);
     free(args);
 }

@@ -20,17 +20,15 @@ void sub(corewar_t *cor, vec_t *proc, int n)
     mem_t *reg = ((process_t *)proc->content[n])->reg;
 
     ((process_t *)proc->content[n])->sleep = op_tab[4].nbr_cycles;
-    if (args != NULL && type[0] - 48 == 0 && type[2] - 48 == 0 && type[4] - 48 == 0 &&
+    if (args != NULL && type[0] == '0' && type[2] == '0' && type[4] == '0' &&
     REG_VALID(args[1]) && REG_VALID(args[2]) && REG_VALID(args[3])) {
         ((process_t *) proc->content[n])->reg[args[3] - 1] \
         = reg[args[1] - 1] - reg[args[2] - 1];
         ((process_t *)proc->content[n])->pc = (pc + args[4]) % MEM_SIZE;
-    } else {
+    } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-        return;
-    }
-    cor->prgs[i_chmp]->carry = (((process_t *) proc->content[n])->reg[args[3] - 1]
-    == 0);
+    cor->prgs[i_chmp]->carry =
+    (((process_t *) proc->content[n])->reg[args[3] - 1] == 0);
     free(type);
     free(args);
 }
