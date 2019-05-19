@@ -85,7 +85,7 @@ corewar_t *get_prgs(int ac, char **av)
         destroy_struct(prgs);
         return (NULL);
     }
-    for (int i = 0; i <= MEM_SIZE; i += 1)
+    for (int i = 0; i <= MEM_SIZE + 1; i += 1)
         prgs->memory[i] = '\0';
     prgs = set_nb_prog(prgs);
     prgs = set_addr(prgs);

@@ -17,7 +17,7 @@ char *my_realloc(char *str, char *src)
 
     for (i = 0; str[i] != '\0'; i += 1);
     for (j = 0; src[j] != '\0'; j += 1);
-    dest = malloc(sizeof(char) * (i + j + 1));
+    dest = malloc(sizeof(char) * (i + j + 2));
     (dest == NULL)?exit(84):0;
     for (k = 0; k < i; k += 1)
         dest[k] = str[k];

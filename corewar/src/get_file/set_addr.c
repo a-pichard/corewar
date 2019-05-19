@@ -54,7 +54,7 @@ int choose_addr(corewar_t *prgs, int rest)
         for (j = k; j % MEM_SIZE != i - 1 && prgs->memory[j] == '\0'; j += 1);
         (size < j - k) ? addr = k : 0;
         (size < j - k) ? size = j - k : 0;
-        for (k = j; k % MEM_SIZE < MEM_SIZE && prgs->memory[k] != '\0'; k += 1);
+        for (k = j; prgs->memory[k % MEM_SIZE] != '\0'; k += 1);
     }
     return ((addr + size / (rest + 1)) % MEM_SIZE);
 }

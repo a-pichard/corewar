@@ -23,6 +23,23 @@ int power_bytes(int nbr, int expo)
     return (number);
 }
 
+char *my_revstr(char *str)
+{
+    int i = 0;
+    int j = 0;
+    char memo[2] = {0};
+
+    while (str[i] != '\0')
+        i += 1;
+    while (j < i / 2) {
+        memo[0] = str[j];
+        str[j] = str[i - j - 1];
+        str[i - j - 1] = memo[0];
+        j += 1;
+    }
+    return (str);
+}
+
 char *conv_i_str(int nbr)
 {
     char *result = malloc(sizeof(char) * (11 + 1));
@@ -36,6 +53,9 @@ char *conv_i_str(int nbr)
     } else
         result[i++] = '0';
     result[i] = '\0';
+    result = my_revstr(result);
+    if (my_strlen(result) <= 7)
+        result = my_realloc("0", result);
     return (result);
 }
 

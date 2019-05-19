@@ -20,16 +20,22 @@ static void print_alive(int nb, char *prg_name)
 
 void live(corewar_t *cor, vec_t *proc, int n)
 {
-    int index_proc = ((process_t *)proc->content[n])->pc;
-    int parameter = 0;
-    int x = 3;
-    op_t op_tab[] = {OP_TAB};
     int pc = ((process_t *)proc->content[n])->pc;
+    int parameter = -1;
+    int arg = 0;
+    op_t op_tab[] = {OP_TAB};
+    char *name;
 
-    for (int i = 0; i <= 3; i++, x--)
-        parameter += cor->memory[index_proc + (i + 1)] * power_bytes(256, x);
-    cor->prgs[parameter]->live++;
-    print_alive(cor->prgs[parameter]->nb, cor->prgs[parameter]->hd->prog_name);
-    ((process_t *)proc->content[n])->pc = (pc + 5) % MEM_SIZE;
+    for (int i = 0; i < REG_SIZE; i += 1)
+        arg += cor->memory[(pc + i + 1) % MEM_SIZE] *
+            my_pow(256, REG_SIZE - i - 1);
     ((process_t *)proc->content[n])->sleep = op_tab[0].nbr_cycles;
+    for (int i = 0; cor->prgs[i] != NULL; i += 1)
+        if (cor->prgs[i]->nb == arg)
+            parameter = i;
+    if (parameter != -1) {
+        name = cor->prgs[parameter]->hd->prog_name;
+        print_alive(cor->prgs[parameter]->nb, name);
+    }
+    ((process_t *)proc->content[n])->pc = (pc + 5) % MEM_SIZE;
 }

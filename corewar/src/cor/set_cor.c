@@ -33,7 +33,7 @@ void check_ins(int *cycle, corewar_t *cor, vec_t *proc)
             ((process_t *)proc->content[i])->sleep -= 1;
             continue;
         }
-        n = index_of_int(cor->memory[((process_t *)proc->content[i])->pc], ins);
+        n = index_of_int(cor->memory[((process_t *)proc->content[i])->pc % MEM_SIZE], ins);
         if (n == -1) {
             ((process_t *)proc->content[i])->pc =
                 (((process_t *)proc->content[i])->pc + 1) % MEM_SIZE;

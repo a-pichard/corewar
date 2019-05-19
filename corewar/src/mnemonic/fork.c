@@ -17,7 +17,7 @@ void f_fork(corewar_t *cor, vec_t *proc, int n)
     int *args = get_args(cor->memory, pc, 1, 1);
 
     process = xmalloc(sizeof(process_t));
-    process->pc = ((pc + args[0]) % IDX_MOD) % MEM_SIZE;
+    process->pc = (pc + args[0] % IDX_MOD) % MEM_SIZE;
     process->sleep = 0;
     for (int i = 0; i < REG_NUMBER; i += 1)
         process->reg[i] = 0;

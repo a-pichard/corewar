@@ -17,7 +17,7 @@ void aff(corewar_t *cor, vec_t *proc, int n)
     int *args = get_args(cor->memory, pc, 2, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
 
-    if (type[0] - 48 == 0 && REG_VALID(args[1])) {
+    if (args != NULL && type[0] - 48 == 0 && REG_VALID(args[1])) {
         my_putchar(((process_t *)proc->content[n])->reg[args[1] - 1] % 256);
         ((process_t *)proc->content[n])->pc = (pc + 3) % MEM_SIZE;
     } else
