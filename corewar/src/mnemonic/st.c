@@ -11,6 +11,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int reg_valid(int n)
+{
+    if (n <= 0 || n > REG_NUMBER + 1)
+        return (0);
+    return (1);
+}
+
 void st(corewar_t *cor, vec_t *proc, int n)
 {
     int pc = ((process_t *)proc->content[n])->pc;
@@ -20,12 +27,12 @@ void st(corewar_t *cor, vec_t *proc, int n)
     int temp = 0;
 
     ((process_t *)proc->content[n])->sleep = op_tab[2].nbr_cycles;
-    if (args != NULL && type[2] - 48 == 0 && REG_VALID(args[1])) {
-        cor->memory[pc + args[2] % IDX_MOD] = ((process_t *) \
-        proc->content[n])->reg[args[1] - 1];
-        ((process_t *)proc->content[n])->pc = (pc + 4) % MEM_SIZE;
+    if (args != NULL && type[2] - 48 == 0 && reg_valid(args[1])) {
+        cor = write_size(((process_t *)proc->content[n])->reg[args[1] - 1],
+                REG_SIZE, pc + args[2] % IDX_MOD, cor);
+        ((process_t *)proc->content[n])->pc = (pc + args[3]) % MEM_SIZE;
     } else if (args != NULL && type[2] - 48 == 1 && type[3] - 48 == 1 &&
-            REG_VALID(args[1]) && REG_VALID(args[2])) {
+            reg_valid(args[2]) && reg_valid(args[1])) {
         ((process_t *) proc->content[n])->reg[args[2] - 1] = ((process_t *) \
         proc->content[n])->reg[args[1] - 1];
         ((process_t *)proc->content[n])->pc = (pc + args[3]) % MEM_SIZE;

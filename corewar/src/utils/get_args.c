@@ -11,14 +11,14 @@
 
 int get_number_adress(mem_t *memory, int nbr_case, int *k, int *dest)
 {
-    int number = 0;
+    int16_t number = 0;
 
     for (int i = 0; i < nbr_case; i += 1)
         number += memory[(*k + i) % MEM_SIZE] *
             my_pow(256, nbr_case - 1 - i);
     *k += nbr_case;
     *dest += nbr_case;
-    return (number);
+    return ((int) number);
 }
 
 int *get_parameter_args(mem_t *memory, int *utils, int *args, int special)
@@ -78,4 +78,13 @@ int *get_args(mem_t *memory, int pc, int nbr_arg, int special)
     } else
         args = get_parameter_args(memory, (int []){pc, nbr_arg}, args, special);
     return (args);
+}
+
+int read_size(int size, int pc, corewar_t *cor)
+{
+    int16_t dest = 0;
+
+    for (int i = 0; i < size; i += 1)
+        dest += cor->memory[(pc + i) % MEM_SIZE] * my_pow(256, size - i - 1);
+    return ((int) dest);
 }

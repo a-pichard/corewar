@@ -25,10 +25,10 @@ void sub(corewar_t *cor, vec_t *proc, int n)
         ((process_t *) proc->content[n])->reg[args[3] - 1] \
         = reg[args[1] - 1] - reg[args[2] - 1];
         ((process_t *)proc->content[n])->pc = (pc + args[4]) % MEM_SIZE;
+        cor->prgs[i_chmp]->carry =
+        (((process_t *) proc->content[n])->reg[args[3] - 1] == 0);
     } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-    cor->prgs[i_chmp]->carry =
-    (((process_t *) proc->content[n])->reg[args[3] - 1] == 0);
     free(type);
     free(args);
 }

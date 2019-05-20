@@ -50,7 +50,7 @@ void my_vm(corewar_t *cor, vec_t *proc)
     int cycle;
     int dump = 0;
 
-    for (cycle_d = CYCLE_TO_DIE; cycle_d > 0; cycle -= CYCLE_DELTA) {
+    for (cycle_d = CYCLE_TO_DIE; cycle_d > 0; cycle_d -= CYCLE_DELTA) {
         for (cycle = 0; cycle < cycle_d; cycle += 1) {
             (dump == cor->dump) ? end_dump(cor) : 0;
             check_ins(&cycle, cor, proc);
@@ -59,8 +59,6 @@ void my_vm(corewar_t *cor, vec_t *proc)
         is_end(cor);
         for (int i = 0; cor->prgs[i] != NULL; i += 1)
             cor->prgs[i]->live = 0;
-        for (int i = 0; i < (int) proc->element; i += 1)
-            ((process_t *)proc->content[i])->sleep = 0;
     }
 }
 

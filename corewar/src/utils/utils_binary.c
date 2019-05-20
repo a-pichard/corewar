@@ -75,3 +75,12 @@ int dec_to_bin(int nub)
     }
     return (number);
 }
+
+corewar_t *write_size(int n, int size, int pc, corewar_t *cor)
+{
+    for (int i = 0; i < size; i += 1) {
+        cor->memory[(pc + size - i - 1) % MEM_SIZE] = n % 256;
+        n = n / 256;
+    }
+    return (cor);
+}

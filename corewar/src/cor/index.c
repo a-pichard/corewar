@@ -6,6 +6,7 @@
 */
 
 #include "corewar.h"
+#include <stdlib.h>
 
 int index_of_champ(corewar_t *cor, int n)
 {
@@ -38,4 +39,14 @@ vec_t *sort_process(vec_t *proc, corewar_t *cor)
         }
     }
     return (proc);
+}
+
+int size_str(char *str)
+{
+    int size;
+
+    my_putstr(str);
+    size = my_strlen(str);
+    free(str);
+    return (size);
 }

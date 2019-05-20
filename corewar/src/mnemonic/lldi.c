@@ -14,8 +14,8 @@ void lldi_suit(vec_t *proc, int n, corewar_t *cor, int *args)
 {
     int pc = ((process_t *)proc->content[n])->pc;
     int i_chmp = ((process_t *)proc->content[n])->chmp;
-    int add = 0;
-    int dest = 0;
+    int16_t add = 0;
+    int16_t dest = 0;
 
     for (int i = 0; i < IND_SIZE; i += 1)
         add += cor->memory[(pc + (args[1] + i)) % MEM_SIZE] *
@@ -39,7 +39,7 @@ void lldi(corewar_t *cor, vec_t *proc, int n)
     int i_chmp = ((process_t *)proc->content[n])->chmp;
 
     ((process_t *)proc->content[n])->sleep = op_tab[9].nbr_cycles;
-    if (args != NULL || (type[2] == '1' && type[3] == '1') || type[4] != '0' ||
+    if (args == NULL || (type[2] == '1' && type[3] == '1') || type[4] != '0' ||
         !REG_VALID(args[3]) || (type[0] == '0' && !REG_VALID(args[1])) ||
         (type[2] == '0' && !REG_VALID(args[2]))) {
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
@@ -49,6 +49,6 @@ void lldi(corewar_t *cor, vec_t *proc, int n)
         args[1] = ((process_t *)proc->content[n])->reg[args[1] - 1];
     if (type[2] == '0')
         args[2] = ((process_t *)proc->content[n])->reg[args[2] - 1];
-    lldi_suite(proc, n, cor, args);
+    lldi_suit(proc, n, cor, args);
     free(type);
 }

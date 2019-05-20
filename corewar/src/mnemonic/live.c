@@ -8,6 +8,8 @@
 #include "corewar.h"
 #include "op.h"
 #include "vec.h"
+#include <stdio.h>
+#include <stdint.h>
 
 static void print_alive(int nb, char *prg_name)
 {
@@ -22,7 +24,7 @@ void live(corewar_t *cor, vec_t *proc, int n)
 {
     int pc = ((process_t *)proc->content[n])->pc;
     int parameter = -1;
-    int arg = 0;
+    int16_t arg = 0;
     op_t op_tab[] = {OP_TAB};
     char *name;
 
@@ -36,6 +38,7 @@ void live(corewar_t *cor, vec_t *proc, int n)
     if (parameter != -1) {
         name = cor->prgs[parameter]->hd->prog_name;
         print_alive(cor->prgs[parameter]->nb, name);
+        cor->prgs[parameter]->live += 1;
     }
     ((process_t *)proc->content[n])->pc = (pc + 5) % MEM_SIZE;
 }

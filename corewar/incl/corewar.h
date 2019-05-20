@@ -10,6 +10,7 @@
 
 #include "op.h"
 #include "vec.h"
+#include <stdint.h>
 #define PROG_NAME_LENGTH 128
 #define COMMENT_LENGTH 2048
 
@@ -78,6 +79,8 @@ int dec_to_bin(int nub);
 char *conv_i_str(int nbr);
 int power_bytes(int nbr, int expo);
 int my_pow(int n, int p);
+corewar_t *write_size(int n, int size, int pc, corewar_t *cor);
+int read_size(int size, int pc, corewar_t *cor);
 
 int set_cor(corewar_t *cor);
 vec_t *sort_process(vec_t *proc, corewar_t *cor);
@@ -86,7 +89,9 @@ int get_number_adress(mem_t *memory, int nbr_case, int *k, int *dest);
 int *get_args(mem_t *memory, int pc, int nbr_arg, int special);
 void is_end(corewar_t *cor);
 void end_dump(corewar_t *cor);
+int size_str(char *str);
 
+int reg_valid(int n);
 void live(corewar_t *cor, vec_t *proc, int n);
 void ld(corewar_t *cor, vec_t *proc, int n);
 void st(corewar_t *cor, vec_t *proc, int n);

@@ -19,8 +19,7 @@ int dec_hexa(int c)
         quotient /= 16;
         size++;
     } while (quotient != 0);
-    if ((res = malloc(size)) == NULL)
-        my_puterr("Erreur d'allocation mémoire...\n");
+    ((res = malloc(size + 1)) == NULL) ? my_puterr("Erreur mémoire...\n") : 0;
     res[size] = '\0';
     quotient = c;
     do {
@@ -29,8 +28,7 @@ int dec_hexa(int c)
         quotient /= 16;
     } while (quotient != 0);
     (my_strlen(res) == 1) ? res = my_realloc("0", res) : 0;
-    my_putstr(res);
-    return (5 - my_strlen(res));
+    return (5 - size_str(res));
 }
 
 void print_space(int n)

@@ -21,13 +21,11 @@ void ld(corewar_t *cor, vec_t *proc, int n)
     ((process_t *)proc->content[n])->sleep = op_tab[1].nbr_cycles;
     if (args != NULL && type[2] - 48 == 0 && REG_VALID(args[2])) {
         ((process_t *)proc->content[n])->reg[args[2] - 1] =
-        pc + args[1] % IDX_MOD;
+            read_size(REG_SIZE, pc + args[1] % IDX_MOD, cor);
         ((process_t *)proc->content[n])->pc = (pc + args[3]) % MEM_SIZE;
-    } else {
+        cor->prgs[i_chmp]->carry = (args[2] == 0);
+    } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-        return;
-    }
-    cor->prgs[i_chmp]->carry = (args[2] == 0);
     free(type);
     free(args);
 }

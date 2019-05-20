@@ -9,6 +9,7 @@
 #include "op.h"
 #include "vec.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void add(corewar_t *cor, vec_t *proc, int n)
 {
@@ -16,7 +17,6 @@ void add(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     int *args = get_args(cor->memory, pc, 3, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
-    int i_chmp = ((process_t *)proc->content[n])->chmp;
     mem_t *reg = ((process_t *)proc->content[n])->reg;
 
     ((process_t *)proc->content[n])->sleep = op_tab[3].nbr_cycles;
@@ -25,10 +25,10 @@ void add(corewar_t *cor, vec_t *proc, int n)
         ((process_t *) proc->content[n])->reg[args[3] - 1] \
         = reg[args[1] - 1] + reg[args[2] - 1];
         ((process_t *)proc->content[n])->pc = (pc + args[4]) % MEM_SIZE;
+        cor->prgs[((process_t *)proc->content[n])->chmp]->carry = \
+        (((process_t *) proc->content[n])->reg[args[3] - 1] == 0);
     } else
         ((process_t *)proc->content[n])->pc = (pc + 1) % MEM_SIZE;
-    cor->prgs[i_chmp]->carry = \
-    (((process_t *) proc->content[n])->reg[args[3] - 1] == 0);
     free(type);
     free(args);
 }
