@@ -16,7 +16,6 @@ void or(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     int *args = get_args(cor->memory, pc, 3, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
-    mem_t *reg = ((process_t *)proc->content[n])->reg;
 
     ((process_t *)proc->content[n])->sleep = op_tab[6].nbr_cycles;
     if (args != NULL && type[0] == '0')

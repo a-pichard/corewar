@@ -24,7 +24,6 @@ void st(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     int *args = get_args(cor->memory, pc, 2, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
-    int temp = 0;
 
     ((process_t *)proc->content[n])->sleep = op_tab[2].nbr_cycles;
     if (args != NULL && type[2] - 48 == 0 && reg_valid(args[1])) {

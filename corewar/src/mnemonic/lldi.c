@@ -36,7 +36,6 @@ void lldi(corewar_t *cor, vec_t *proc, int n)
     op_t op_tab[] = {OP_TAB};
     int *args = get_args(cor->memory, pc, 3, 0);
     char *type = conv_i_str(dec_to_bin(cor->memory[(pc + 1) % MEM_SIZE]));
-    int i_chmp = ((process_t *)proc->content[n])->chmp;
 
     ((process_t *)proc->content[n])->sleep = op_tab[9].nbr_cycles;
     if (args == NULL || (type[2] == '1' && type[3] == '1') || type[4] != '0' ||
