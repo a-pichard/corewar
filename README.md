@@ -21,3 +21,8 @@ The winner of the game is the last one to have executed the "live" instruction
 * read helpers:
   * ./asm/asm  -h
   * ./corewar/corewar -h
+
+# Contributors
+* Adrien PICHARD
+* Thomas ROUX
+* Rémi BESSET
