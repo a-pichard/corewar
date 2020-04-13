@@ -8,7 +8,7 @@ to write on one another.
 The winner of the game is the last one to have executed the "live" instruction
 
 * Grade: B
-* Final Mark: 19 / 20
+* Final Mark: 19 / 22
   * Preliminary 2 / 2
   * Assembler 9 / 10
   * Virtual Machine 8 / 10
