@@ -1,5 +1,5 @@
 # Introduction
-corewar is an EPITECH (TECH1) year's end project writen in C. Corewar is a game. A very special game. It consists of pitting little programs against one another in a virtual machine.
+corewar is an EPITECH (TECH1) year's end project written in C. Corewar is a game. A very special game. It consists of pitting little programs against one another in a virtual machine.
 The goal of the game is to prevent the other programs from functioning correctly by using all available means.
 The game will, therefore, create a virtual machine in which the programs (written by the players) will face off. Each
 program’s objective is to "survive", that is to say executing a special instruction ("live") that means I’m still alive.
